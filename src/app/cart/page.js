@@ -47,7 +47,7 @@ const getFoods = async (id) => {
     let response = await fetch(`${process.env.HOST}/api/food?id=${id}`);
     const food = await response.json();
     if (food.error){
-        alert("Unable to fetch user");
+        alert("Unable to fetch food");
     }
     else{
         return food[0];

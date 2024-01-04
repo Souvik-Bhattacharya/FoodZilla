@@ -25,6 +25,7 @@ export async function POST(request) {
             "quantity": res.quantity,
             "amount": res.amount
         })
+        console.log(order);
         return Response.json({ "error": false })
     }
     catch {

@@ -1,10 +1,8 @@
 "use client"
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { parseCookies } from 'nookies'
 
 const Cart = (props) => {
-    const cookies = parseCookies();
     let user = props.user[0];
     let foods = props.foodItems;
     const { push } = useRouter()
@@ -41,40 +39,7 @@ const Cart = (props) => {
             alert(`Error: ${data.error}`)
         }
         else {
-            if (data.url === `${props.HOST}/payment/success`) {
-                for (let food of foods) {
-                    let response = await fetch(`${process.env.HOST}/api/addorder`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "usertoken": cookies["usertoken"]
-                        },
-                        body: JSON.stringify(food)
-                    })
-                    let data = await response.json();
-                    if (data.error) {
-                        alert(`Error: ${data.error}`);
-                        break;
-                    }
-                }
-                let res = await fetch(`${props.HOST}/api/removecart`, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "usertoken": cookies["usertoken"]
-                    }
-                })
-                let err = await res.json();
-                if (err.error) {
-                    alert(`Error: ${err.error}`);
-                }
-                else {
-                    push(data.url);
-                }
-            }
-            else {
-                push(data.url);
-            }
+            push(data.url)
         }
     }
 
