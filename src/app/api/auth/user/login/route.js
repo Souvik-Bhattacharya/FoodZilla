@@ -2,7 +2,6 @@ import { connectToDB } from "@/db/database";
 import { User } from "@/db/models/user";
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
-const JWT_KEY = "souvikrox"
 
 export async function POST(request){
     connectToDB();
@@ -15,7 +14,7 @@ export async function POST(request){
             let data = {
                 uid: user[0]._id
             }
-            userToken = jwt.sign(data, JWT_KEY);
+            userToken = jwt.sign(data, process.env.JWT_KEY);
             return Response.json({userToken});
         }
         else{

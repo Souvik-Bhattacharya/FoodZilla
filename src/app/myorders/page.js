@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 const getOrders = async () => {
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
-    let response = await fetch(`http://localhost:3000/api/getorders`, {
+    let response = await fetch(`${process.env.HOST}/api/getorders`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

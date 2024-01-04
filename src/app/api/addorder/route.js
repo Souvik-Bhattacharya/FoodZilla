@@ -3,15 +3,13 @@ import { Orderitem } from "@/db/models/order";
 import { headers } from 'next/headers'
 const jwt = require("jsonwebtoken");
 
-const JWT_KEY = "souvikrox";
-
 export async function POST(request) {
     connectToDB();
     const res = await request.json();
     const headersList = headers();
     const token = headersList.get('usertoken');
     try {
-        const data = jwt.verify(token, JWT_KEY);
+        const data = jwt.verify(token, process.env.JWT_KEY);
         const uid = data.uid;
         const date = new Date();
         const dateString = date.toDateString();

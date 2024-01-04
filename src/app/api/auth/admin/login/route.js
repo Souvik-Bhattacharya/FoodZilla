@@ -1,7 +1,6 @@
 import { connectToDB } from "@/db/database";
 import { Admin } from "@/db/models/admin";
 const jwt = require("jsonwebtoken")
-const JWT_KEY = "souvikrox"
 
 export async function POST(request){
     connectToDB();
@@ -12,7 +11,7 @@ export async function POST(request){
         let data = {
             aid: admin[0]._id
         }
-        adminToken = jwt.sign(data, JWT_KEY);
+        adminToken = jwt.sign(data, process.env.JWT_KEY);
     }
     return Response.json({adminToken})
 }

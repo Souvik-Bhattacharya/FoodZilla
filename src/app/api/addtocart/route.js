@@ -3,15 +3,13 @@ import { Cartitem } from "@/db/models/cartItem";
 import { headers } from 'next/headers'
 const jwt = require("jsonwebtoken");
 
-const JWT_KEY = "souvikrox";
-
 export async function POST(request) {
     connectToDB();
     const res = await request.json();
     const headersList = headers();
     const token = headersList.get('usertoken');
     try{
-        const data = jwt.verify(token, JWT_KEY);
+        const data = jwt.verify(token, process.env.JWT_KEY);
         const uid = data.uid;
         const cart = await Cartitem.create({
             "uid": uid,

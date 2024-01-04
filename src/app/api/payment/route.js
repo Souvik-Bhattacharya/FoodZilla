@@ -19,8 +19,8 @@ export async function POST(request){
                     quantity: item.quantity
                 }
             }),
-            success_url: `http://localhost:3000/payment/success`,
-            cancel_url: `http://localhost:3000/payment/cancel`
+            success_url: `${process.env.HOST}/payment/success`,
+            cancel_url: `${process.env.HOST}/payment/cancel`
         })
 
         return Response.json({"url": session.url, "error": false})

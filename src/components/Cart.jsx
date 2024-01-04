@@ -14,7 +14,7 @@ const Cart = (props) => {
     });
 
     const remove = async (cid) => {
-        let response = await fetch(`http://localhost:3000/api/removecartitem?id=${cid}`);
+        let response = await fetch(`${props.HOST}/api/removecartitem?id=${cid}`);
         const data = await response.json();
         if (data.error) {
             alert("Unable to remove food item")
@@ -27,7 +27,7 @@ const Cart = (props) => {
 
     const order = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:3000/api/payment`, {
+        const response = await fetch(`${props.HOST}/api/payment`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -41,9 +41,9 @@ const Cart = (props) => {
             alert(`Error: ${data.error}`)
         }
         else {
-            if (data.url === `http://localhost:3000/payment/success`) {
+            if (data.url === `${props.HOST}/payment/success`) {
                 for (let food of foods) {
-                    let response = await fetch(`http://localhost:3000/api/addorder`, {
+                    let response = await fetch(`${process.env.HOST}/api/addorder`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const Cart = (props) => {
                         break;
                     }
                 }
-                let res = await fetch(`http://localhost:3000/api/removecart`, {
+                let res = await fetch(`${props.HOST}/api/removecart`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",

@@ -17,8 +17,8 @@ const Navbar = async () => {
       {(cookies().has('usertoken') || cookies().has('admintoken')) ?
         <div className='flex gap-3'>
           <Link href={"/logout"}>Log Out</Link>
-          {cookies().has("usertoken")? <Link href={"/user"}>User</Link> : <></>}
-          {cookies().has("admintoken")? <Link href={"/admin"}>Admin</Link> : <></>}
+          {cookies().has("usertoken") ? <Link href={"/user"}>User</Link> : <></>}
+          {cookies().has("admintoken") ? <Link href={"/admin"}>Admin</Link> : <></>}
         </div> : <div className='flex gap-3'>
           <Link href={"/login"}>Login</Link>
           <Link href={"/adminlogin"}>Admin</Link>

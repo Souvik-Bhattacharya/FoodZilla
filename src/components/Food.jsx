@@ -16,7 +16,7 @@ const Food = (props) => {
             push("/login")
         }
         else{
-            const response = await fetch("http://localhost:3000/api/addtocart", {
+            const response = await fetch(`${props.HOST}/api/addtocart`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application-json",

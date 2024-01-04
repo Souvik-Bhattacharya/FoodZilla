@@ -1,13 +1,14 @@
 import Cart from '@/components/Cart';
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation';
+import { getHost } from '../actions';
 
 // , { next: { revalidate: 1 } }
 
 const getCartItems = async () => {
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
-    let response = await fetch(`http://localhost:3000/api/getcartitems`, {
+    let response = await fetch(`${process.env.HOST}/api/getcartitems`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -26,7 +27,7 @@ const getCartItems = async () => {
 const getUser = async () => {
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
-    let response = await fetch(`http://localhost:3000/api/auth/user/getuser`, {
+    let response = await fetch(`${process.env.HOST}/api/auth/user/getuser`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -43,7 +44,7 @@ const getUser = async () => {
 }
 
 const getFoods = async (id) => {
-    let response = await fetch(`http://localhost:3000/api/food?id=${id}`);
+    let response = await fetch(`${process.env.HOST}/api/food?id=${id}`);
     const food = await response.json();
     if (food.error){
         alert("Unable to fetch user");
@@ -73,8 +74,9 @@ const page = async () => {
         foodItems.push(food)
     }
     let user = await getUser();
+    let host = await getHost();
     return (
-        <Cart foodItems={foodItems} user={user}/>
+        <Cart foodItems={foodItems} user={user} HOST={host}/>
     )
 }
 
