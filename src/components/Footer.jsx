@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Footer = () => {
     return (
-        <footer className='flex p-8 justify-evenly items-center bg-slate-100'>
+        <footer className='flex justify-evenly items-center bg-slate-100'>
             <div className='flex flex-col w-fit p-10 gap-3'>
                 {/* <img src={logo} alt="Logo" /> */}
                 <h3>&copy; FoodZilla</h3>

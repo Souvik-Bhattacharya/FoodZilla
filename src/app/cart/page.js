@@ -3,18 +3,16 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation';
 import { getHost } from '../actions';
 
-// , { next: { revalidate: 1 } }
-
-const getCartItems = async () => {
+const getCart = async () => {
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
-    let response = await fetch(`${process.env.HOST}/api/getcartitems`, {
+    let response = await fetch(`${process.env.HOST}/api/cart/get`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
             "usertoken": usertoken.value
         }
-    });
+    }, { next: { revalidate: 1 } });
     let data = await response.json();
     if (data.error){
         alert("Unable to fetch user");
@@ -27,7 +25,7 @@ const getCartItems = async () => {
 const getUser = async () => {
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
-    let response = await fetch(`${process.env.HOST}/api/auth/user/getuser`, {
+    let response = await fetch(`${process.env.HOST}/api/auth/user/get`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -43,40 +41,15 @@ const getUser = async () => {
     }
 }
 
-const getFoods = async (id) => {
-    let response = await fetch(`${process.env.HOST}/api/food?id=${id}`);
-    const food = await response.json();
-    if (food.error){
-        alert("Unable to fetch food");
-    }
-    else{
-        return food[0];
-    }
-}
-
 const page = async () => {
     if(!cookies().has("usertoken")){
-        redirect("/login")
+        redirect("/user/login")
     }
-    let cartItems = await getCartItems();
-    let foodItems = []
-    for (let item of cartItems) {
-        let foodItem = await getFoods(item.fid);
-        let food = {}
-        food["fid"] = foodItem._id;
-        food["name"] = foodItem.name;
-        food["category"] = foodItem.category;
-        food["desc"] = foodItem.desc;
-        food["price"] = foodItem.price;
-        food["cid"] = item._id;
-        food["quantity"] = item.quantity;
-        food["amount"] = item.amount;
-        foodItems.push(food)
-    }
+    let cart = await getCart();
     let user = await getUser();
     let host = await getHost();
     return (
-        <Cart foodItems={foodItems} user={user} HOST={host}/>
+        <Cart cart={cart} user={user} HOST={host}/>
     )
 }
 

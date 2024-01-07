@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
     uid: String,
+    user: String,
+    address: String,
+    pincode: Number,
     date: String,
-    fid: String,
+    image: String,
     name: String,
-    category: String,
-    desc: String,
     price: Number,
-    cid: String,
     quantity: Number,
     amount: Number
 });
 
-export const Orderitem = mongoose.models.orderitem || mongoose.model("orderitem", orderSchema);
+export const Order = mongoose.models.order || mongoose.model("order", orderSchema);

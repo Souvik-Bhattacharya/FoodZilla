@@ -2,10 +2,10 @@ import Link from 'next/link'
 import React from 'react'
 import { cookies } from 'next/headers'
 
-const getCartItems = async () => {
+const getCart = async () => {
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
-    let response = await fetch(`${process.env.HOST}/api/getcartitems`, {
+    let response = await fetch(`${process.env.HOST}/api/cart/get`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -14,39 +14,56 @@ const getCartItems = async () => {
     });
     let data = await response.json();
     if (data.error){
-        alert("Unable to fetch user");
+        console.log(data.error);
     }
     else{
         return data;
     }
 }
 
-const getFoods = async (id) => {
-    let response = await fetch(`${process.env.HOST}/api/food?id=${id}`);
-    const food = await response.json();
-    if (food.error){
-        alert("Unable to fetch food");
+const getUser = async () => {
+    const cookieStore = cookies()
+    const usertoken = cookieStore.get('usertoken')
+    let response = await fetch(`${process.env.HOST}/api/auth/user/get`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "usertoken": usertoken.value
+        }
+    });
+    let data = await response.json();
+    if (data.error){
+        console.log(data.error)
     }
     else{
-        return food[0];
+        return data;
     }
 }
 
-const addOrders = async (foods)=>{
+const addOrders = async (foods, user)=>{
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
     for (let food of foods) {
-        let response = await fetch(`${process.env.HOST}/api/addorder`, {
+        let response = await fetch(`${process.env.HOST}/api/orders/add`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "usertoken": usertoken.value
             },
-            body: JSON.stringify(food)
+            body: JSON.stringify({
+                user: user.name,
+                address: user.address,
+                pincode: user.pincode,
+                image: food.image,
+                name: food.name,
+                price: food.price,
+                quantity: food.quantity,
+                amount: food.amount
+            })
         })
         let data = await response.json();
         if (data.error) {
-            alert(`Error: ${data.error}`);
+            console.log(data.error)
             break;
         }
     }
@@ -55,7 +72,7 @@ const addOrders = async (foods)=>{
 const removeCart = async ()=>{
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
-    let response = await fetch(`${process.env.HOST}/api/removecart`, {
+    let response = await fetch(`${process.env.HOST}/api/cart/remove`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -64,34 +81,21 @@ const removeCart = async ()=>{
     })
     let data = await response.json();
     if (data.error) {
-        alert(`Error: ${data.error}`);
+        console.log(data.error)
     }
 }
 
 const page = async () => {
-    let cartItems = await getCartItems();
-    let foodItems = []
-    for (let item of cartItems) {
-        let foodItem = await getFoods(item.fid);
-        let food = {}
-        food["fid"] = foodItem._id;
-        food["name"] = foodItem.name;
-        food["category"] = foodItem.category;
-        food["desc"] = foodItem.desc;
-        food["price"] = foodItem.price;
-        food["cid"] = item._id;
-        food["quantity"] = item.quantity;
-        food["amount"] = item.amount;
-        foodItems.push(food)
-    }
-    await addOrders(foodItems);
+    let cart = await getCart();
+    let user = await getUser();
+    await addOrders(cart, user);
     await removeCart();
     return (
         <div className='w-full p-28 justify-center place-items-center'>
             <div className='flex flex-col items-center'>
                 <h1 className='text-5xl text-green-600 p-5'>Payment Successful</h1>
                 <h1 className='text-2xl text-yellow-500 p-5'>Your order will be delivered shortly</h1>
-                <Link href={"/myorders"} className='underline text-xl'>Go Back to My Orders Page</Link>
+                <Link href={"/orders"} className='underline text-xl'>Go Back to My Orders Page</Link>
             </div>
         </div>
     )
