@@ -36,7 +36,7 @@ const Login = (props) => {
     }
 
     return (
-        <div className='p-10 flex flex-col items-center w-full h-full'>
+        <div className='p-10 flex flex-col items-center w-full h-screen'>
             <h1 className='p-5 text-xl font-bold text-blue-500 italic'>User Login</h1>
             <div className='p-5'>
                 <form onSubmit={submit} className='flex flex-col gap-3'>

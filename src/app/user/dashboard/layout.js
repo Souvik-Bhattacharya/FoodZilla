@@ -38,4 +38,5 @@ const pageLayout = async ({ children }) => {
     )
 }
 
+
 export default pageLayout;

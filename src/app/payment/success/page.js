@@ -91,11 +91,11 @@ const page = async () => {
     await addOrders(cart, user);
     await removeCart();
     return (
-        <div className='w-full p-28 justify-center place-items-center'>
+        <div className='w-full h-screen flex p-20 justify-center items-center'>
             <div className='flex flex-col items-center'>
-                <h1 className='text-5xl text-green-600 p-5'>Payment Successful</h1>
-                <h1 className='text-2xl text-yellow-500 p-5'>Your order will be delivered shortly</h1>
-                <Link href={"/orders"} className='underline text-xl'>Go Back to My Orders Page</Link>
+                <h1 className='text-3xl text-green-600 p-5'>Payment Successful</h1>
+                <h1 className='text-xl text-blue-500 p-5'>Your order will be delivered shortly</h1>
+                <Link href={"/orders"} className='underline text-lg'>Go Back to My Orders Page</Link>
             </div>
         </div>
     )

@@ -30,7 +30,7 @@ const Remove = (props) => {
     }
 
     return (
-        <form onSubmit={remove} className='p-24 flex flex-col items-start h-full col-span-3 gap-3'>
+        <form onSubmit={remove} className='p-20 flex flex-col items-start h-full col-span-3 gap-3'>
             <div className='flex flex-col'>
                 <p className='p-1 text-xl font-bold text-blue-500 italic'>Remove Category</p>
                 <hr className='p-1 w-full' />

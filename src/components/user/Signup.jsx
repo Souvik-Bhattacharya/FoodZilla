@@ -58,7 +58,7 @@ const Signup = (props) => {
     }
 
     return (
-        <form onSubmit={submit} className='p-10 flex flex-col gap-5 items-center w-full h-full'>
+        <form onSubmit={submit} className='p-10 flex flex-col gap-5 items-center w-full h-screen'>
             <h1 className='p-2 text-xl font-bold text-blue-500 italic'>User Sign Up</h1>
             <div className='flex gap-5 justify-center items-center'>
                 <img src={data.image} alt="" className='rounded-lg' width={240} height={240}/>

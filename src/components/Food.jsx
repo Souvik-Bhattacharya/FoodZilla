@@ -50,8 +50,8 @@ const Food = (props) => {
     }
 
     return (
-        <div className='col-span-4 gap-2 flex p-20 h-full'>
-            <div className="w-1/3 h-1/2">
+        <div className='col-span-4 gap-2 flex p-10 h-full justify-center'>
+            <div className="">
                 <img src={food.image} alt="" className='rounded-lg' />
             </div>
             <div className='flex flex-col gap-1'>

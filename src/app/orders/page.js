@@ -27,12 +27,12 @@ const page = async () => {
     }
     const orders = await getOrders();
     return (
-        <div className='h-screen grid gap-5 text-center p-20 overflow-auto'>
+        <div className='h-screen grid gap-5 text-center p-10 overflow-auto'>
             <h1 className='text-xl font-bold text-blue-500 italic row-span-1'>My Orders</h1>
-            <div className='h-full row-span-9 grid grid-cols-[repeat(auto-fill,520px)] justify-center gap-5'>
+            <div className='h-full row-span-9 grid grid-cols-[repeat(auto-fit,520px)] justify-center gap-5'>
                 {orders.map((order) => {
                     return (
-                        <div key={order._id} className='flex hover:shadow-lg hover:shadow-blue-200 rounded-lg border-2 border-slate-200'>
+                        <div key={order._id} className='flex h-fit hover:shadow-lg hover:shadow-blue-200 rounded-lg border-2 border-slate-200'>
                             <img src={order.image} alt="" className='rounded-large' width={220}/>
                             <div className='flex flex-col p-2 items-start justify-between'>
                                 <p className='text-sm p-1'>{order.name}</p>

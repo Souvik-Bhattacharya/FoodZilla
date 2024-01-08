@@ -34,8 +34,8 @@ const Login = (props) => {
     }
 
     return (
-        <div className='p-10 flex flex-col justify-center items-center w-full'>
-            <h1 className='p-5'>Admin Login</h1>
+        <div className='p-10 flex flex-col items-center'>
+            <h1 className='p-5 text-xl font-bold text-blue-500 italic'>Admin Login</h1>
             <div className='p-5'>
                 <form onSubmit={submit} className='flex flex-col gap-3'>
                     <div>
@@ -44,7 +44,7 @@ const Login = (props) => {
                     <div>
                         <input type="password" name="password" value={data.password} placeholder='Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg'/>
                     </div>
-                    <button type="submit" className='bg-orange-300 p-2 shadow rounded-lg'>Login</button>
+                    <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold p-2 shadow rounded-lg'>Login</button>
                 </form>
             </div>
         </div>
