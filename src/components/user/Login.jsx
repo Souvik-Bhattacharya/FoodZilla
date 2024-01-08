@@ -49,7 +49,7 @@ const Login = (props) => {
                     <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold p-2 shadow rounded-lg'>Login</button>
                 </form>
             </div>
-            <div className='p-5 text-sm'>Don't have an account? <Link href={"/user/signup"} className='underline'>Sign Up</Link></div>
+            <div className='p-5 text-sm'>Don&apos;t have an account? <Link href={"/user/signup"} className='underline'>Sign Up</Link></div>
         </div>
     )
 }

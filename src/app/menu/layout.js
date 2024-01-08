@@ -20,7 +20,7 @@ const pageLayout = async ({ children }) => {
                 <hr className='w-full '/>
                 <Link href={"/menu"} className="hover:w-full hover:border-r-2 hover:border-blue-500 hover:text-blue-500 ">All</Link>
                 {catagories.map(category => {
-                    return <Link href={`/menu/category/${category.name}`} className="hover:w-full hover:border-r-2 hover:border-blue-500 hover:text-blue-500 ">{category.name}</Link>
+                    return <Link href={`/menu/category/${category.name}`} key={category._id} className="hover:w-full hover:border-r-2 hover:border-blue-500 hover:text-blue-500 ">{category.name}</Link>
                 })}
             </div>
             {children}
