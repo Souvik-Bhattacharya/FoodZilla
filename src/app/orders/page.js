@@ -12,7 +12,7 @@ const getOrders = async () => {
             "Content-Type": "application/json",
             "usertoken": usertoken.value
         }
-    }, { next: { revalidate: 1 } });
+    }, { cache: 'no-store' });
     let data = await response.json();
     if (data.error) {
         console.log(data.error);

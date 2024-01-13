@@ -12,7 +12,7 @@ const getCart = async () => {
             "Content-Type": "application/json",
             "usertoken": usertoken.value
         }
-    }, { next: { revalidate: 1 } });
+    }, { cache: 'no-store' });
     let data = await response.json();
     if (data.error){
         alert("Unable to fetch user");
@@ -31,7 +31,7 @@ const getUser = async () => {
             "Content-Type": "application/json",
             "usertoken": usertoken.value
         }
-    });
+    }, { next: { revalidate: 1 } });
     let data = await response.json();
     if (data.error){
         alert("Unable to fetch user");

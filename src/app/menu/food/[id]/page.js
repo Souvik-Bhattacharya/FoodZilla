@@ -3,7 +3,7 @@ import Food from "@/components/Food";
 import { getHost } from '@/app/actions';
 
 const getFoods = async (id) => {
-    let response = await fetch(`${process.env.HOST}/api/foods/get?id=${id}`, { next: { revalidate: 1 } });
+    let response = await fetch(`${process.env.HOST}/api/foods/get?id=${id}`, { cache: 'no-store' });
     let data = await response.json();
     if (data.error) {
         console.log(data.error)

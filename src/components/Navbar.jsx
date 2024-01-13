@@ -16,7 +16,7 @@ const getUser = async () => {
       "Content-Type": "application/json",
       "usertoken": cookies().get("usertoken").value
     }
-  })
+  }, { next: { revalidate: 1 } })
   const data = await response.json()
   return data
 }
@@ -28,7 +28,7 @@ const getAdmin = async () => {
       "Content-Type": "application/json",
       "admintoken": cookies().get("admintoken").value
     }
-  })
+  }, { next: { revalidate: 1 } })
   const data = await response.json()
   return data
 }
@@ -61,7 +61,7 @@ const Navbar = async () => {
           </Link> : <></>}
           {cookies().has("admintoken") ? <Link href={"/admin/dashboard/profile"} className='flex gap-2 items-center'>
             Hi! {data.name.split(" ")[0]}
-            <Image src={data.image} alt="" height={25} width={25} className='rounded-full' />
+            <Image src={data.image} alt="" height={25} width={25} className='rounded-full ring-2 ring-blue-500' />
           </Link> : <></>}
           <Link href={"/logout"}><FontAwesomeIcon icon={faArrowRightFromBracket} size='lg' className='text-blue-500'/></Link>
         </div> : <div className='flex gap-3'>
