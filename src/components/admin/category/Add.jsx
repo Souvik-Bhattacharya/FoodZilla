@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image'
 import { parseCookies } from 'nookies'
 import React, { useState } from 'react'
 
@@ -41,19 +42,18 @@ const Add = (props) => {
     }
 
     return (
-        <form onSubmit={add} className='p-20 flex flex-col gap-3 items-center col-span-3 h-full overflow-scroll'>
+        <form onSubmit={add} className='p-20 flex flex-col gap-3 items-center col-span-3 h-full overflow-auto'>
             <h1 className='p-2 text-xl font-bold text-blue-500 italic'>Add Category</h1>
             <div className='flex gap-5 justify-center items-center'>
-                <img src={data.image} alt="" className='rounded-lg' width={240} height={240}/>
+                <Image src={data.image} alt="" className='rounded-lg' width={240} height={240}/>
                 <div className='flex flex-col gap-2 p-5'>
 
-                    <input type="text" name="name" value={data.name} placeholder='Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg' />
+                    <input type="text" name="name" value={data.name} placeholder='Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg' required/>
 
-                    <input type="file" accept='image/*' onChange={convert} className='bg-slate-200 p-2 shadow rounded-lg w-fit' />
+                    <input type="file" accept='image/*' onChange={convert} className='bg-slate-200 p-2 shadow rounded-lg w-fit' required/>
                 </div>
-
             </div>
-            <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold p-2 shadow rounded-lg'>Add</button>
+            <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-3 rounded-lg'>Add</button>
         </form>
     )
 }

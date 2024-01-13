@@ -30,15 +30,15 @@ const Remove = (props) => {
     }
 
     return (
-        <form onSubmit={remove} className='p-20 flex flex-col items-start h-full col-span-3 gap-3'>
+        <form onSubmit={remove} className='p-20 flex flex-col items-start h-full col-span-3 gap-3 overflow-auto'>
             <div className='flex flex-col'>
                 <p className='p-1 text-xl font-bold text-blue-500 italic'>Remove Food</p>
                 <hr className='p-1 w-full' />
             </div>
 
-            <input type="text" name="name" value={data.name} placeholder='Food Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg w-fit' />
+            <input type="text" name="name" value={data.name} placeholder='Food Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg w-fit' required/>
 
-            <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold p-2 shadow rounded-lg'>Remove</button>
+            <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-3 rounded-lg'>Remove</button>
         </form>
     )
 }

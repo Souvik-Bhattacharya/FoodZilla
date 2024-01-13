@@ -1,6 +1,7 @@
 import React from 'react'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import Image from 'next/image'
 
 const getOrders = async () => {
     const cookieStore = cookies()
@@ -32,8 +33,8 @@ const page = async () => {
             <div className='h-full row-span-9 grid grid-cols-[repeat(auto-fit,520px)] justify-center gap-5'>
                 {orders.map((order) => {
                     return (
-                        <div key={order._id} className='flex h-fit hover:shadow-lg hover:shadow-blue-200 rounded-lg border-2 border-slate-200'>
-                            <img src={order.image} alt="" className='rounded-large' width={220}/>
+                        <div key={order._id} className='flex h-fit hover:shadow-lg hover:shadow-blue-200 rounded-lg border-2 border-slate-200 rounded-xl overflow-hidden'>
+                            <Image src={order.image} alt="" className='' width={200} height={200}/>
                             <div className='flex flex-col p-2 items-start justify-between'>
                                 <p className='text-sm p-1'>{order.name}</p>
                                 <p className='p-1 text-xs '>{order.date}</p>

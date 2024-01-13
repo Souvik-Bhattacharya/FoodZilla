@@ -2,6 +2,11 @@
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { parseCookies } from 'nookies'
+import Image from 'next/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faCartPlus
+} from "@fortawesome/free-solid-svg-icons";
 
 const Food = (props) => {
     const food = props.data[0]
@@ -50,11 +55,11 @@ const Food = (props) => {
     }
 
     return (
-        <div className='col-span-4 gap-2 flex p-10 h-full justify-center'>
+        <div className='col-span-4 gap-2 flex p-10 h-full justify-center overflow-auto'>
             <div className="">
-                <img src={food.image} alt="" className='rounded-lg' />
+                <Image src={food.image} alt="" width={220} height={220} className='rounded-lg' />
             </div>
-            <div className='flex flex-col gap-1'>
+            <div className='flex flex-col gap-1 p-2'>
                 <p className='text-2xl p-1'>{food.name}</p>
                 <p className='text-base p-1'>Category: {food.category}</p>
                 <hr className='w-full' />
@@ -67,7 +72,7 @@ const Food = (props) => {
                         <button className='text-base p-2 rounded-md hover:shadow' onClick={add}>+</button>
                     </div>
                     <p className='p-1 text-base'>Total Price: ₹{amount}</p>
-                    <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold p-2 shadow rounded-md'>Add to Cart</button>
+                    <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 text-white font-bold p-3 rounded-lg hover:shadow-md hover:shadow-blue-100'><FontAwesomeIcon icon={faCartPlus} size="xl" style={{ color: "#ffffff", }} /></button>
                 </form>
             </div>
         </div>

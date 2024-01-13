@@ -18,9 +18,9 @@ const pageLayout = async ({ children }) => {
             <div className='flex flex-col items-start p-10 gap-3 h-full shadow'>
                 <h1 className="text-blue-500 text-xl font-bold italic">Category</h1>
                 <hr className='w-full '/>
-                <Link href={"/menu"} className="hover:w-full hover:border-r-2 hover:border-blue-500 hover:text-blue-500 ">All</Link>
+                <Link href={"/menu"} className="hover:w-full hover:border-r-2 hover:border-blue-500 hover:text-blue-500 active:text-blue-500">All</Link>
                 {catagories.map(category => {
-                    return <Link href={`/menu/category/${category.name}`} key={category._id} className="hover:w-full hover:border-r-2 hover:border-blue-500 hover:text-blue-500 ">{category.name}</Link>
+                    return <Link href={`/menu/category/${category.name}`} key={category._id} className="hover:w-full hover:border-r-2 hover:border-blue-500 hover:text-blue-500 active:text-blue-500">{category.name}</Link>
                 })}
             </div>
             {children}

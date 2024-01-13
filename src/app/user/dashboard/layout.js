@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import Image from "next/image";
 import Link from "next/link";
 
 const getUser = async () => {
@@ -25,8 +26,8 @@ const pageLayout = async ({ children }) => {
     return (
         <div className='grid grid-flow-col grid-cols-4 h-screen'>
             <div className='flex flex-col items-start p-20 gap-3 h-full shadow'>
-                <img src={user.image} alt="" height={75} width={75} className="rounded-full ring-2 ring-blue-500" />
-                <h1 className="text-blue-500 text-xl font-bold italic">{user.email}</h1>
+                <Image src={user.image} alt="" height={50} width={50} className="rounded-full ring-2 ring-blue-500" />
+                <h1 className="text-blue-500 text-xl font-bold italic text-wrap">{user.email}</h1>
                 <hr className='w-full ' />
                 <Link href={"/user/dashboard/profile"} className="hover:w-full hover:border-r-2 hover:border-blue-500 hover:text-blue-500 ">My Profile</Link>
                 <Link href={"/user/dashboard/orders"} className="hover:w-full hover:border-r-2 hover:border-blue-500 hover:text-blue-500 ">My Orders</Link>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { cookies } from 'next/headers'
+import Image from 'next/image'
 
 const getOrders = async () => {
     const cookieStore = cookies()
@@ -29,7 +30,7 @@ const page = async () => {
                 return (
                     <div key={order._id} className='p-5 flex h-fit justify-between hover:shadow-lg hover:shadow-blue-200 rounded-lg'>
                         <div className='flex gap-1'>
-                            <img src={order.image} alt="" className='p-2 rounded-lg bg-slate-100' height={150} width={150} />
+                            <Image src={order.image} alt="" className='p-2 rounded-lg bg-slate-100' height={150} width={150} />
                             <div className='flex flex-col items-start justify-between'>
                                 <p className='text-base p-1'>{order.name}</p>
                                 <p className='text-xs p-1'>Order Id: {order._id}</p>

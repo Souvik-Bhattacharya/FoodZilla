@@ -1,6 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import { cookies } from 'next/headers'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faArrowRightFromBracket,
+  faArrowRightToBracket,
+  faGear
+} from "@fortawesome/free-solid-svg-icons";
+import Image from 'next/image'
 
 const getUser = async () => {
   const response = await fetch(`${process.env.HOST}/api/auth/user/get`, {
@@ -35,25 +42,31 @@ const Navbar = async () => {
     data = await getAdmin()
   }
   return (
-    <div className='flex items-center justify-evenly p-5 shadow'>
-      <div>
+    <div className='flex items-center justify-evenly p-5 bg-slate-100'>
+      <div className='flex gap-2 items-center'>
+        <Image src={'/icon.png'} height={25} width={25} alt=''></Image>
         <p className='text-blue-500 font-bold italic text-xl'>FoodZilla</p>
       </div>
       <div className='flex gap-3 items-center'>
-        <Link href={"/"}>Home</Link>
-        <Link href={"/menu"}>Menu</Link>
-        <Link href={"/cart"}>Cart</Link>
-        <Link href={"/orders"}>My Orders</Link>
+        <Link href={"/"} className='active:text-blue-500'>Home</Link>
+        <Link href={"/menu"} className='active:text-blue-500'>Menu</Link>
+        <Link href={"/cart"} className='active:text-blue-500'>Cart</Link>
+        <Link href={"/orders"} className='active:text-blue-500'>My Orders</Link>
       </div>
-
       {(cookies().has('usertoken') || cookies().has('admintoken')) ?
         <div className='flex gap-3 items-center'>
-          <Link href={"/logout"}>Log Out</Link>
-          {cookies().has("usertoken") ? <Link href={"/user/dashboard/profile"} className='flex gap-1 items-center'><img src={data.image} alt="" height={25} width={25} className='rounded-full' />Hi! {data.name.split(" ")[0]}</Link> : <></>}
-          {cookies().has("admintoken") ? <Link href={"/admin/dashboard/profile"} className='flex gap-1 items-center'><img src={data.image} alt="" height={25} width={25} className='rounded-full' />Hi! {data.name.split(" ")[0]}</Link> : <></>}
+          {cookies().has("usertoken") ? <Link href={"/user/dashboard/profile"} className='flex gap-2 items-center'>
+            Hi! {data.name.split(" ")[0]}
+            <Image src={data.image} alt="" height={25} width={25} className='rounded-full ring-2 ring-blue-500' />
+          </Link> : <></>}
+          {cookies().has("admintoken") ? <Link href={"/admin/dashboard/profile"} className='flex gap-2 items-center'>
+            Hi! {data.name.split(" ")[0]}
+            <Image src={data.image} alt="" height={25} width={25} className='rounded-full' />
+          </Link> : <></>}
+          <Link href={"/logout"}><FontAwesomeIcon icon={faArrowRightFromBracket} size='lg' className='text-blue-500'/></Link>
         </div> : <div className='flex gap-3'>
-          <Link href={"/user/login"}>Login</Link>
-          <Link href={"/admin/login"}>Admin</Link>
+          <Link href={"/user/login"}><FontAwesomeIcon icon={faArrowRightToBracket} size='lg' className='text-blue-500'/></Link>
+          <Link href={"/admin/login"}><FontAwesomeIcon icon={faGear} size='lg' className='text-blue-500'/></Link>
         </div>
       }
     </div>
