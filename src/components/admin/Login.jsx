@@ -34,7 +34,7 @@ const Login = (props) => {
     }
 
     return (
-        <div className='p-10 flex flex-col items-center w-full h-screen overflow-auto'>
+        <div className='p-10 small:px-0 flex flex-col items-center w-full h-screen overflow-auto'>
             <h1 className='p-5 text-xl font-bold text-blue-500 italic'>Admin Login</h1>
             <div className='p-5'>
                 <form onSubmit={submit} className='flex flex-col gap-3'>

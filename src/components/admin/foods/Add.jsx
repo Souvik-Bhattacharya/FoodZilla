@@ -4,7 +4,7 @@ import { parseCookies } from 'nookies'
 import React, { useState } from 'react'
 
 const Add = (props) => {
-    const [data, setData] = useState({ image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjL0RDH1SAkW4BLqJ7Lc4Koh60aL0bTDWYlQ&usqp=CAU", category: "", name: "", desc: "", price: "", likes: "" })
+    const [data, setData] = useState({ image: "", category: "", name: "", desc: "", price: "", likes: "" })
 
     const add = async (e) => {
         e.preventDefault()
@@ -42,22 +42,22 @@ const Add = (props) => {
     }
 
     return (
-        <form onSubmit={add} className='p-20 flex flex-col gap-3 items-center col-span-3 h-full overflow-auto'>
+        <form onSubmit={add} className='p-10 small:px-0 flex flex-col gap-3 items-center col-span-3 small:col-span-4 h-full overflow-auto'>
             <h1 className='p-2 text-xl font-bold text-blue-500 italic'>Add Food</h1>
-            <div className='flex gap-5 justify-center items-center'>
+            <div className='flex gap-5 justify-center items-center small:flex-col'>
                 <Image src={data.image} alt="" className='rounded-lg' width={240} height={240}/>
-                <div className='flex flex-col gap-2 p-5'>
-                    <input type="text" name="category" value={data.category} placeholder='Category' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg' required/>
+                <div className='flex flex-col gap-2 p-5 small:p-2'>
+                    <input type="text" name="category" value={data.category} placeholder='Category' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center' required/>
 
-                    <input type="text" name="name" value={data.name} placeholder='Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg' required/>
+                    <input type="text" name="name" value={data.name} placeholder='Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center' required/>
 
-                    <input type="text" name="desc" value={data.desc} placeholder='Description' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg' required/>
+                    <input type="text" name="desc" value={data.desc} placeholder='Description' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center' required/>
 
-                    <input type="number" name="price" value={data.price} placeholder='Price' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg' required/>
+                    <input type="number" name="price" value={data.price} placeholder='Price' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center' required/>
 
-                    <input type="number" name="likes" value={data.likes} placeholder='Likes' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg' required/>
+                    <input type="number" name="likes" value={data.likes} placeholder='Likes' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center' required/>
 
-                    <input type="file" accept='image/*' onChange={convert} className='bg-slate-200 p-2 shadow rounded-lg w-fit' required/>
+                    <input type="file" accept='image/*' onChange={convert} className='bg-slate-200 p-2 shadow rounded-lg w-fit micro:w-2/3 self-center' required/>
                 </div>
 
             </div>

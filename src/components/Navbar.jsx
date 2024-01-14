@@ -8,6 +8,7 @@ import {
   faGear
 } from "@fortawesome/free-solid-svg-icons";
 import Image from 'next/image'
+import Hamburger from './Hamburger';
 
 const getUser = async () => {
   const response = await fetch(`${process.env.HOST}/api/auth/user/get`, {
@@ -43,11 +44,12 @@ const Navbar = async () => {
   }
   return (
     <div className='flex items-center justify-evenly p-5 bg-slate-100'>
-      <div className='flex gap-2 items-center'>
+      <Hamburger />
+      <div className='flex gap-1 items-center'>
         <Image src={'/icon.png'} height={25} width={25} alt=''></Image>
         <p className='text-blue-500 font-bold italic text-xl'>FoodZilla</p>
       </div>
-      <div className='flex gap-3 items-center'>
+      <div className='flex gap-3 items-center small:hidden'>
         <Link href={"/"} className='active:text-blue-500'>Home</Link>
         <Link href={"/menu"} className='active:text-blue-500'>Menu</Link>
         <Link href={"/cart"} className='active:text-blue-500'>Cart</Link>
@@ -56,17 +58,17 @@ const Navbar = async () => {
       {(cookies().has('usertoken') || cookies().has('admintoken')) ?
         <div className='flex gap-3 items-center'>
           {cookies().has("usertoken") ? <Link href={"/user/dashboard/profile"} className='flex gap-2 items-center'>
-            Hi! {data.name.split(" ")[0]}
+            <p className='mini:hidden'>Hi! {data.name.split(" ")[0]}</p>
             <Image src={data.image} alt="" height={25} width={25} className='rounded-full ring-2 ring-blue-500' />
           </Link> : <></>}
           {cookies().has("admintoken") ? <Link href={"/admin/dashboard/profile"} className='flex gap-2 items-center'>
-            Hi! {data.name.split(" ")[0]}
+            <p className='mini:hidden'>Hi! {data.name.split(" ")[0]}</p>
             <Image src={data.image} alt="" height={25} width={25} className='rounded-full ring-2 ring-blue-500' />
           </Link> : <></>}
-          <Link href={"/logout"}><FontAwesomeIcon icon={faArrowRightFromBracket} size='lg' className='text-blue-500'/></Link>
+          <Link href={"/logout"}><FontAwesomeIcon icon={faArrowRightFromBracket} size='lg' className='text-blue-500' /></Link>
         </div> : <div className='flex gap-3'>
-          <Link href={"/user/login"}><FontAwesomeIcon icon={faArrowRightToBracket} size='lg' className='text-blue-500'/></Link>
-          <Link href={"/admin/login"}><FontAwesomeIcon icon={faGear} size='lg' className='text-blue-500'/></Link>
+          <Link href={"/user/login"}><FontAwesomeIcon icon={faArrowRightToBracket} size='lg' className='text-blue-500' /></Link>
+          <Link href={"/admin/login"}><FontAwesomeIcon icon={faGear} size='lg' className='text-blue-500' /></Link>
         </div>
       }
     </div>

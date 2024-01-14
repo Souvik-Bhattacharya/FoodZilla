@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={mooli.className}>
-        <div className='flex flex-col justify-between'>
+        <div className='flex flex-col justify-between inset-0'>
           <Navbar />
           {children}
           <Footer />

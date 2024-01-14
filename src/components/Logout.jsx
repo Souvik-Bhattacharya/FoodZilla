@@ -11,7 +11,7 @@ const logout = () => {
 const Logout = () => {
     logout();
     return (
-        <div className='w-full h-screen flex p-20 justify-center overflow-auto'>
+        <div className='w-full h-screen flex p-10 justify-center overflow-auto'>
             <div className='flex flex-col items-center'>
                 <h1 className='text-3xl text-green-600 p-5'>Logged Out Successfully</h1>
                 <h1 className='text-xl text-blue-500 p-5'>Visit Us Again</h1>

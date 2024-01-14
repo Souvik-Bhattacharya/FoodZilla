@@ -16,15 +16,15 @@ export default async function Home() {
   const categories = await getCategories();
   return (
     <main className="flex flex-col">
-      <div className="h-[60vh] flex justify-center items-center bg-slate-100">
-        <div className='p-12 flex flex-col gap-3'>
-          <div className='text-5xl flex gap-1'>It&apos;s not just <p className='text-blue-400'>Food</p></div>
-          <div className='text-5xl flex gap-1'>It&apos;s an <p className='text-blue-500'>Experience</p></div>
-          <div>Your go-to destination for delicious meals delivered right to your door step.</div>
+      <div className="h-fit flex mini:flex-col mini:justify-between mini:items-center justify-center bg-slate-100">
+        <div className='p-12 flex flex-col gap-3 justify-center mini:items-center'>
+          <div className='text-5xl flex gap-1 small:text-4xl micro:text-2xl'>It&apos;s not just <p className='text-blue-400'>Food</p></div>
+          <div className='text-5xl flex gap-1 small:text-4xl micro:text-2xl'>It&apos;s an <p className='text-blue-500'>Experience</p></div>
+          <div className='text-center micro:text-sm'>Your go-to destination for delicious meals delivered right to your door step.</div>
           <div><Link href={'/menu'}><button className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-2'>Order Now &gt;</button></Link></div>
         </div>
-        <div className='h-full flex items-end'>
-          <Image src="/home_bg.png" width={800} height={800} alt="" />
+        <div className='flex items-end'>
+          <Image src="/bg.png" width={500} height={500} alt="" className='self-end'/>
         </div>
       </div>
       <div className='flex flex-col p-12 gap-10'>
@@ -42,17 +42,17 @@ export default async function Home() {
       </div>
       <div className='flex flex-col p-12 gap-5 bg-slate-100'>
         <div className='text-xl font-bold text-blue-500 italic text-center'>About Us</div>
-        <div className='flex justify-center gap-2'>
-          <div className='flex flex-col p-12 gap-2 w-[40vw] items-center text-center'>
+        <div className='flex justify-center gap-5 small:flex-col small:items-center'>
+          <div className='flex flex-col gap-2 w-[50vw] items-center text-center small:w-full'>
             <div className='text-lg font-bold text-blue-500 text-center'>Why To Choose?</div>
-            <p>Explore a diverse range of cuisines</p>
-            <p>Our user-friendly platform makes ordering a breeze</p>
-            <p>Conut on us to bring your food to your door-step promptly</p>
-            <p>We partner with top-notch resturants to guarantee the highest quality in every bite</p>
+            <p className='small:text-sm mini:text-xs'>Explore a diverse range of cuisines</p>
+            <p className='small:text-sm mini:text-xs'>Our user-friendly platform makes ordering a breeze</p>
+            <p className='small:text-sm mini:text-xs'>Conut on us to bring your food to your door-step promptly</p>
+            <p className='small:text-sm mini:text-xs'>We partner with top-notch resturants to guarantee the highest quality in every bite</p>
           </div>
-          <div className='flex flex-col p-12 gap-2 items-center w-[40vw] text-center'>
+          <div className='flex flex-col gap-2 items-center w-[50vw] text-center small:w-full'>
             <div className='text-lg font-bold text-blue-500 text-center'>Our Mission</div>
-            <p>
+            <p className='small:text-sm mini:text-xs'>
               Our mission is to connect you with a variety of culinary delights from local resturants, ensuring that you can enjoy your favourite dishes without leaving the comfort of your home. We strive to make every meal a delightful experience
             </p>
           </div>
@@ -60,7 +60,7 @@ export default async function Home() {
       </div>
       <div className='p-12 flex flex-col items-center gap-5 bg-slate-100'>
       <div className='text-xl font-bold text-blue-500 italic text-center'>Contact Us</div>
-      <div className='text-4xl font-bold text-blue-400 text-center'>+91-01234-56789</div>
+      <div className='text-4xl mini:text-3xl micro:text-xl font-bold text-blue-400 text-center'>+91-01234-56789</div>
       </div>
     </main>
   )

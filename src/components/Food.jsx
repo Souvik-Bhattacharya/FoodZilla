@@ -55,25 +55,25 @@ const Food = (props) => {
     }
 
     return (
-        <div className='col-span-4 gap-2 flex p-10 h-full justify-center overflow-auto'>
-            <div className="">
-                <Image src={food.image} alt="" width={220} height={220} className='rounded-lg' />
-            </div>
-            <div className='flex flex-col gap-1 p-2'>
-                <p className='text-2xl p-1'>{food.name}</p>
-                <p className='text-base p-1'>Category: {food.category}</p>
-                <hr className='w-full' />
-                <p className='p-1 text-base'>{food.desc}</p>
-                <p className='p-1 text-base'>Unit Price: ₹{food.price}</p>
-                <form onSubmit={submit} className='flex justify-between items-center'>
-                    <div className='flex p-1 bg-slate-200 rounded-lg'>
-                        <button className='text-base font-bold p-2 rounded-md hover:shadow' onClick={subtract}>-</button>
-                        <input type="text" readOnly value={quantity} className='bg-slate-200 p-2 shadow rounded-md text-base font-bold w-12 text-center' />
-                        <button className='text-base p-2 rounded-md hover:shadow' onClick={add}>+</button>
-                    </div>
-                    <p className='p-1 text-base'>Total Price: ₹{amount}</p>
-                    <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 text-white font-bold p-3 rounded-lg hover:shadow-md hover:shadow-blue-100'><FontAwesomeIcon icon={faCartPlus} size="xl" style={{ color: "#ffffff", }} /></button>
-                </form>
+        <div className='col-span-4 small:col-span-5 gap-2 h-full overflow-auto'>
+            <div className='flex p-10 mini:flex-col justify-center items-center w-full h-fit'>
+                <Image src={food.image} alt="" width={200} height={200} className='rounded-lg' />
+                <div className='flex flex-col gap-1 px-2 mini:items-center mini:text-center'>
+                    <p className='text-2xl p-1'>{food.name}</p>
+                    <p className='text-base p-1'>Category: {food.category}</p>
+                    <hr className='w-full' />
+                    <p className='p-1 text-base'>{food.desc}</p>
+                    <p className='p-1 text-base'>Unit Price: ₹{food.price}</p>
+                    <form onSubmit={submit} className='flex justify-between items-center mini:flex-col'>
+                        <div className='flex p-1 bg-slate-200 rounded-lg'>
+                            <button className='text-base font-bold p-2 rounded-md hover:shadow' onClick={subtract}>-</button>
+                            <input type="text" readOnly value={quantity} className='bg-slate-200 p-2 shadow rounded-md text-base font-bold w-12 text-center' />
+                            <button className='text-base p-2 rounded-md hover:shadow' onClick={add}>+</button>
+                        </div>
+                        <p className='p-1 text-base'>Total Price: ₹{amount}</p>
+                        <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 text-white font-bold p-3 rounded-lg hover:shadow-md hover:shadow-blue-100'><FontAwesomeIcon icon={faCartPlus} size="xl" style={{ color: "#ffffff", }} /></button>
+                    </form>
+                </div>
             </div>
         </div>
     )

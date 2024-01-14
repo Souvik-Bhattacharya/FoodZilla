@@ -13,13 +13,13 @@ import {
 
 const Footer = () => {
     return (
-        <footer className='flex justify-evenly items-center bg-slate-100'>
-            <div className='flex flex-col w-fit p-10 gap-3'>
+        <footer className='flex justify-evenly items-center bg-slate-100 mini:flex-col mini:items-center'>
+            <div className='flex flex-col w-fit p-10 gap-3 mini:items-center mini:text-center'>
                 <Image src={'/icon.png'} height={50} width={50} alt=''></Image>
-                <p className='text-blue-500 font-bold italic text-xl'>&copy; FoodZilla</p>
-                <p>Designed and Developed by Souvik Bhattacharya</p>
+                <div className='text-blue-500 font-bold italic text-xl'>&copy; FoodZilla</div>
+                <div>Designed and Developed by Souvik Bhattacharya</div>
             </div>
-            <div className="flex flex-col gap-3 w-fit p-10">
+            <div className="flex flex-col gap-3 w-fit p-10 mini:items-center mini:text-center">
                 <div className='text-lg text-blue-500'>Links</div>
                 <hr />
                 <div className="flex flex-col gap-1">
@@ -29,7 +29,7 @@ const Footer = () => {
                     <Link href={"/orders"} className='hover:text-blue-500'>My Orders</Link>
                 </div>
             </div>
-            <div className="flex flex-col gap-3 w-fit p-10">
+            <div className="flex flex-col gap-3 w-fit p-10 mini:items-center mini:text-center">
                 <div className='text-lg text-blue-500'>Social</div>
                 <hr />
                 <div id="flex flex-col gap-1">

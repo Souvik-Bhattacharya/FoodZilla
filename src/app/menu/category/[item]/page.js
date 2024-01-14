@@ -10,7 +10,7 @@ const getFoods = async (item) => {
 const page = async ({ params }) => {
     const foods = await getFoods(params.item);
     return (
-        <div className='h-full grid gap-5 text-center p-10 overflow-auto col-span-4'>
+        <div className='h-full grid gap-5 text-center p-10 overflow-auto col-span-4 small:col-span-5'>
             <h1 className='text-xl font-bold text-blue-500 italic'>{params.item}</h1>
             <div className='h-full row-span-9 grid grid-cols-[repeat(auto-fit,200px)] gap-5 justify-center'>
                 {foods.map((food) => {
