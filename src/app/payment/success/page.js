@@ -93,9 +93,9 @@ const page = async () => {
     return (
         <div className='w-full h-screen flex p-10 justify-center overflow-auto'>
             <div className='flex flex-col items-center'>
-                <h1 className='text-3xl text-green-600 p-5'>Payment Successful</h1>
-                <h1 className='text-xl text-blue-500 p-5'>Your order will be delivered shortly</h1>
-                <Link href={"/orders"} className='underline text-lg'>Go Back to My Orders Page</Link>
+                <h1 className='text-2xl text-green-600 p-5 text-center'>Payment Successful</h1>
+                <h1 className='text-xl text-blue-500 p-5 text-center'>Your order will be delivered shortly</h1>
+                <Link href={"/orders"} className='underline text-lg text-center'>Go Back to My Orders Page</Link>
             </div>
         </div>
     )
