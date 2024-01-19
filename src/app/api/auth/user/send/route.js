@@ -33,8 +33,11 @@ export async function POST(request) {
                 <hr/>
                 <b>${process.env.HOST}/user/reset/${userToken}</b>`, // html body
             });
+            console.log(info)
+            console.log(process.env.HOST)
             return Response.json({'status': 'Email Send Successfully'});
         } catch (error) {
+            console.log(error)
             return Response.json({error})
         }
     }
