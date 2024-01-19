@@ -35,7 +35,7 @@ const page = async () => {
                     <div className='h-full row-span-9 grid grid-cols-[repeat(auto-fit,520px)] mini:grid-cols-[repeat(auto-fit,200px)] justify-center gap-5'>
                         {orders.map((order) => {
                             return (
-                                <div key={order._id} className='flex h-[220px] hover:shadow-lg hover:shadow-blue-200 border-2 border-slate-200 rounded-xl overflow-hidden mini:flex-col '>
+                                <div key={order._id} className='flex h-[220px] mini:h-fit hover:shadow-lg hover:shadow-blue-200 border-2 border-slate-200 rounded-xl overflow-hidden mini:flex-col '>
                                     <Image src={order.image} alt="" className='w-[200px] h-[220px]' width={200} height={200} />
                                     <div className='flex flex-col p-2 items-start mini:items-center justify-between'>
                                         <p className='text-sm p-1'>{order.name}</p>
