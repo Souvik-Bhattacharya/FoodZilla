@@ -1,15 +1,21 @@
 "use client"
 import Link from 'next/link'
 import React from 'react'
-import { destroyCookie } from 'nookies'
+import { destroyCookie, parseCookies } from 'nookies'
+import { useRouter } from 'next/navigation'
 
-const logout = () => {
-    destroyCookie(null, "usertoken");
-    destroyCookie(null, "admintoken");
-}
 
 const Logout = () => {
-    logout();
+    const {refresh} = useRouter();
+    const logout = async () => {
+        destroyCookie(null, "usertoken");
+        destroyCookie(null, "admintoken");
+        refresh();
+    }
+    const cookies = parseCookies();
+    if(cookies["usertoken"] || cookies["admintoken"]){
+        logout();
+    }
     return (
         <div className='w-full h-screen flex p-10 justify-center overflow-auto'>
             <div className='flex flex-col items-center'>

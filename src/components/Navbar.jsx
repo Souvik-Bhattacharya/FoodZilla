@@ -59,11 +59,11 @@ const Navbar = async () => {
         <div className='flex gap-3 items-center'>
           {cookies().has("usertoken") ? <Link href={"/user/dashboard/profile"} className='flex gap-2 items-center'>
             <p className='mini:hidden'>Hi! {data.name.split(" ")[0]}</p>
-            <Image src={data.image} alt="" height={25} width={25} className='rounded-full ring-2 ring-blue-500' />
+            <Image src={data.image} alt="" height={25} width={25} className='rounded-full ring-2 ring-blue-500 w-[25px] h-[25px]' />
           </Link> : <></>}
           {cookies().has("admintoken") ? <Link href={"/admin/dashboard/profile"} className='flex gap-2 items-center'>
             <p className='mini:hidden'>Hi! {data.name.split(" ")[0]}</p>
-            <Image src={data.image} alt="" height={25} width={25} className='rounded-full ring-2 ring-blue-500' />
+            <Image src={data.image} alt="" height={25} width={25} className='rounded-full ring-2 ring-blue-500 w-[25px] h-[25px]' />
           </Link> : <></>}
           <Link href={"/logout"}><FontAwesomeIcon icon={faArrowRightFromBracket} size='lg' className='text-blue-500' /></Link>
         </div> : <div className='flex gap-3'>

@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 const Login = (props) => {
     const [data, setData] = useState({ "email": "", "password": "" })
-    const { push } = useRouter();
+    const { push, refresh } = useRouter();
 
     const submit = async (e) => {
         e.preventDefault();
@@ -27,6 +27,7 @@ const Login = (props) => {
                 path: '/',
             })
             alert("Successfully logged in");
+            setTimeout(()=>{refresh()}, 100)
             push("/menu");
         }
     }
@@ -41,14 +42,15 @@ const Login = (props) => {
             <div className='p-5'>
                 <form onSubmit={submit} className='flex flex-col gap-3'>
                     <div>
-                        <input type="email" name="email" value={data.email} placeholder='Email Address' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg'  required/>
+                        <input type="email" name="email" autoComplete='username' value={data.email} placeholder='Email Address' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg'  required/>
                     </div>
                     <div>
-                        <input type="password" name="password" value={data.password} placeholder='Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg'  required/>
+                        <input type="password" name="password" autoComplete='current-password' value={data.password} placeholder='Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg'  required/>
                     </div>
                     <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-3 rounded-lg'>Login</button>
                 </form>
             </div>
+            <Link href={"/user/reset"} className='underline text-xs'>Forget Password ?</Link>
             <div className='p-5 text-sm'>Don&apos;t have an account? <Link href={"/user/signup"} className='underline'>Sign Up</Link></div>
         </div>
     )

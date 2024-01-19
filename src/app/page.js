@@ -24,7 +24,7 @@ export default async function Home() {
           <div><Link href={'/menu'}><button className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-2'>Order Now &gt;</button></Link></div>
         </div>
         <div className='flex items-end'>
-          <Image src="/bg.png" width={500} height={500} alt="" className='self-end'/>
+          <Image src="/bg.png" width={300} height={300} alt="" className='self-end w-[300px] h-[300px]'/>
         </div>
       </div>
       <div className='flex flex-col p-12 gap-10'>

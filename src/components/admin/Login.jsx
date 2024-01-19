@@ -5,7 +5,7 @@ import { setCookie } from 'nookies'
 
 const Login = (props) => {
     const [data, setData] = useState({"email":"", "password":""})
-    const {push} = useRouter();
+    const {push, refresh} = useRouter();
 
     const submit = async (e)=>{
         e.preventDefault();
@@ -25,6 +25,7 @@ const Login = (props) => {
                 maxAge: 30 * 24 * 60 * 60,
                 path: '/',
             })
+            setTimeout(()=>{refresh()}, 100)
             push("/menu");
         }
     }

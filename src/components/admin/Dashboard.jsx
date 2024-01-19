@@ -29,7 +29,7 @@ const Dashboard = (props) => {
             <FontAwesomeIcon id='open' icon={faGreaterThan} className='text-blue-500 cursor-pointer hidden small:block p-2' onClick={open}/>
             <FontAwesomeIcon id='close' icon={faLessThan} className='text-blue-500 cursor-pointer hidden self-end p-3' onClick={close}/>
             <div id='cat' className='flex flex-col items-start p-10 small:pt-0 gap-3 h-fit w-fit small:w-[50vw] small:hidden'>
-                <Image src={admin.image} alt="" height={50} width={50} className="rounded-full ring-2 ring-blue-500" />
+                <Image src={admin.image} alt="" height={50} width={50} className="w-[50px] h-[50px]rounded-full ring-2 ring-blue-500" />
                 <h1 className="text-blue-500 text-xl font-bold italic small:text-xs micro:hidden">{admin.email}</h1>
                 <hr className='w-full ' />
                 <Link href={"/admin/dashboard/profile"} className={`hover:text-blue-500 block hover:border-r-blue-500 hover:border-r-2 mini:text-sm micro:text-xs ${pathname === '/admin/dashboard/profile' ? 'text-blue-500 border-r-2 border-blue-500' : ''} w-full`}>Profile</Link>

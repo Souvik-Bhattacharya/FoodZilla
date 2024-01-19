@@ -57,7 +57,7 @@ const Food = (props) => {
     return (
         <div className='col-span-4 small:col-span-5 gap-2 h-full overflow-auto'>
             <div className='flex p-10 mini:flex-col justify-center items-center w-full h-fit'>
-                <Image src={food.image} alt="" width={200} height={200} className='rounded-lg' />
+                <Image src={food.image} alt="" width={200} height={200} className='rounded-lg w-[200px] h-[200px]' />
                 <div className='flex flex-col gap-1 px-2 mini:items-center mini:text-center'>
                     <p className='text-2xl p-1'>{food.name}</p>
                     <p className='text-base p-1'>Category: {food.category}</p>
