@@ -11,9 +11,9 @@ export async function POST(request) {
         const uid = data.uid;
         let salt = await bcrypt.genSalt(10);
         let hashedPassword = await bcrypt.hash(res.password, salt);
-        await User.findByIdAndUpdate(uid, {password: hashedPassword});
-        return Response.json({ "status": "Password Updated Successfully" })
+        await User.findByIdAndUpdate(uid, { password: hashedPassword });
+        return Response.json({ status: 'ok' })
     } catch (error) {
-        return Response.json({"error": error})
+        return Response.json({ error })
     }
 }

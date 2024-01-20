@@ -24,7 +24,7 @@ const remove = async () => {
 const page = async () => {
     await remove();
     return (
-        <Remove/>
+        <Remove />
     )
 }
 

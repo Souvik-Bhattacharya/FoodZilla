@@ -68,7 +68,7 @@ const Password = (props) => {
                 <hr className='p-1 w-full' />
             </div>
 
-            <input type="password" name="password" value={data.password} autoComplete="new-password" required placeholder='Update Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg w-1/2'/>
+            <input type="password" name="password" value={data.password} autoComplete="new-password" required placeholder='Update Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg w-1/2' />
 
             <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-3 rounded-lg w-1/2'>Update</button>
         </form>

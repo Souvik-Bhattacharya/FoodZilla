@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Add = (props) => {
-    const [data, setData] = useState({ image: "", name: "" })
+    const [data, setData] = useState({ image: "/category.png", name: "" })
 
     const add = async (e) => {
         e.preventDefault()
@@ -50,13 +50,13 @@ const Add = (props) => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
 
-    const convert = (e)=>{
+    const convert = (e) => {
         let reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
-        reader.onload = ()=>{
+        reader.onload = () => {
             setData({ ...data, image: reader.result })
         }
-        reader.onerror = (error)=>{
+        reader.onerror = (error) => {
             toast.error(`${error}`, {
                 position: "top-center",
                 autoClose: 5000,
@@ -86,12 +86,12 @@ const Add = (props) => {
             />
             <h1 className='p-2 text-xl font-bold text-blue-500 italic'>Add Category</h1>
             <div className='flex gap-5 justify-center items-center small:flex-col'>
-                <Image src={data.image} alt="" className='rounded-lg' width={240} height={240}/>
+                <Image src={data.image} alt="" className='w-[240px] h-[240px] rounded-lg' width={240} height={240} />
                 <div className='flex flex-col gap-2 p-5 small:p-2'>
 
-                    <input type="text" name="name" value={data.name} placeholder='Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
+                    <input type="text" name="name" value={data.name} placeholder='Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required />
 
-                    <input type="file" accept='image/*' onChange={convert} className='bg-slate-200 p-2 shadow rounded-lg w-fit micro:w-2/3 self-center' required/>
+                    <input type="file" accept='image/*' onChange={convert} className='bg-slate-200 p-2 shadow rounded-lg w-fit micro:w-2/3 self-center' required />
                 </div>
             </div>
             <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-3 rounded-lg w-1/2'>Add</button>

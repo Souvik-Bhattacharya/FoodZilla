@@ -8,7 +8,7 @@ export async function POST(request) {
     const res = await request.json();
     const headersList = headers();
     const token = headersList.get('usertoken');
-    try{
+    try {
         const data = jwt.verify(token, process.env.JWT_KEY);
         const uid = data.uid;
         await Cart.create({
@@ -19,9 +19,9 @@ export async function POST(request) {
             quantity: res.quantity,
             amount: res.amount
         })
-        return Response.json({ "error": false })
+        return Response.json({ status: 'ok' })
     }
-    catch(error){
-        return Response.json({ "error": true })
+    catch (error) {
+        return Response.json({ error })
     }
 }

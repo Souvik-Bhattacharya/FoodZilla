@@ -24,21 +24,18 @@ export async function POST(request) {
         }
         try {
             userToken = jwt.sign(data, process.env.JWT_KEY);
-            const info = await transporter.sendMail({
+            await transporter.sendMail({
                 from: '"FoodZilla" <support@foodzilla.org.in>', // sender address
                 to: `${user[0].email}`, // list of receivers
                 subject: "Reset Password", // Subject line
-                html: 
-                `<h4>To change your password click on the link below!</h4>
+                html:
+                    `<h4>To change your password click on the link below!</h4>
                 <hr/>
                 <b>${process.env.HOST}/user/reset/${userToken}</b>`, // html body
             });
-            console.log(info)
-            console.log(process.env.HOST)
-            return Response.json({'status': 'Email Send Successfully'});
+            return Response.json({ status: 'ok' });
         } catch (error) {
-            console.log(error)
-            return Response.json({error})
+            return Response.json({ error })
         }
     }
     else {

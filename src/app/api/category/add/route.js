@@ -3,7 +3,7 @@ import { Category } from "@/db/models/category";
 import { headers } from 'next/headers'
 const jwt = require("jsonwebtoken");
 
-export async function POST(request){
+export async function POST(request) {
     connectToDB();
     const headersList = headers();
     const token = headersList.get('admintoken');
@@ -11,8 +11,8 @@ export async function POST(request){
     try {
         jwt.verify(token, process.env.JWT_KEY);
         await Category.create(res);
-        return Response.json({"error": false})
+        return Response.json({ status: 'ok' })
     } catch (error) {
-        return Response.json({"error": error})
+        return Response.json({ error })
     }
 }

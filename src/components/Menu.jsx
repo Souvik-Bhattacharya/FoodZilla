@@ -1,16 +1,23 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faMagnifyingGlass,
-    faSort
+    faSort,
+    faHeart
 } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
+import { parseCookies } from 'nookies'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Menu = (props) => {
     const data = props.foods;
+    const { push } = useRouter();
     let [foods, setfoods] = useState(data);
+    let [likes, setlikes] = useState(props.likes);
     const search = (e) => {
         let items = data.filter(item => {
             let lowerCaseItem = item.name.toLowerCase();
@@ -33,8 +40,149 @@ const Menu = (props) => {
             setfoods([...items])
         }
     }
+    const plus = async (fid, like) => {
+        const cookies = parseCookies();
+        if (!cookies["usertoken"]) {
+            push("/user/login")
+        }
+        else {
+            let response1 = await fetch(`${props.HOST}/api/like/add`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'usertoken': cookies["usertoken"]
+                },
+                body: JSON.stringify({ fid })
+            })
+            let msg1 = await response1.json()
+            if (msg1.error) {
+                toast.error('Unable to add like', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+            else {
+                setlikes([...likes, msg1.fid])
+                like = like + 1;
+                let response2 = await fetch(`${props.HOST}/api/foods/update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'usertoken': cookies["usertoken"]
+                    },
+                    body: JSON.stringify({ fid, like })
+                });
+                let msg2 = await response2.json()
+                if (msg2.error) {
+                    toast.error('Unable to update like', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+                else {
+                    let fooditems = foods.map((e) => {
+                        if (e._id === fid) { e.likes = like }
+                        return e
+                    })
+
+                    setfoods(fooditems)
+                }
+            }
+        }
+    }
+    const minus = async (fid, like) => {
+        const cookies = parseCookies();
+        if (!cookies["usertoken"]) {
+            push("/user/login")
+        }
+        else {
+            let response1 = await fetch(`${props.HOST}/api/like/remove`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'usertoken': cookies["usertoken"]
+                },
+                body: JSON.stringify({ fid })
+            })
+            let msg1 = await response1.json()
+            if (msg1.error) {
+                toast.error('Unable to remove like', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+            else {
+                let items = likes.filter((e) => {
+                    if (e !== fid) {
+                        return e
+                    }
+                })
+                setlikes(items)
+                like = like - 1
+                let response2 = await fetch(`${props.HOST}/api/foods/update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'usertoken': cookies["usertoken"]
+                    },
+                    body: JSON.stringify({ fid, like })
+                })
+                let msg2 = await response2.json()
+                if (msg2.error) {
+                    toast.error('Unable to update like', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+                else {
+                    let fooditems = foods.map((e) => {
+                        if (e._id === fid) { e.likes = like }
+                        return e
+                    })
+
+                    setfoods(fooditems)
+                }
+            }
+        }
+    }
     return (
         <div className='h-full grid gap-5 text-center p-10 overflow-auto col-span-4 small:col-span-5'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             {
                 props.category ? <h1 className='text-xl font-bold text-blue-500 italic row-span-1'>{props.category}</h1> : <h1 className='text-xl font-bold text-blue-500 italic row-span-1'>Menu</h1>
             }
@@ -45,8 +193,8 @@ const Menu = (props) => {
                 </form>
                 <form action="" className="flex items-center gap-2">
                     <label htmlFor="sort"><FontAwesomeIcon icon={faSort} className="text-blue-500" /></label>
-                    <select id="sort" className="bg-slate-100 border-2 border-blue-300 rounded-md py-1" onChange={sortByPrice}>
-                        <option value="" selected disabled hidden>Select...</option>
+                    <select id="sort" defaultValue={'default'} className="bg-slate-100 border-2 border-blue-300 rounded-md py-1" onChange={sortByPrice}>
+                        <option value="default" disabled hidden>Select...</option>
                         <option value="ascending">Ascending</option>
                         <option value="descending">Descending</option>
                     </select>
@@ -58,7 +206,22 @@ const Menu = (props) => {
                         {foods.map((food) => {
                             return (
                                 <div key={food._id} className='h-fit flex flex-col items-center hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-200 rounded-xl overflow-hidden'>
-                                    <p className='border-2 border-blue-100 text-sm sticky opacity-75 p-2 bg-white w-[200px] text-center'>{food.name}</p>
+                                    <div className='border-2 border-blue-100 border-b-0 text-sm p-1 w-[200px] text-center'>
+                                        <p>{food.name}</p>
+                                    </div>
+                                    <div className="flex justify-center gap-1 items-center border-2 border-blue-100 border-t-0 w-[200px]">
+                                        {
+                                            (likes.includes(food._id)) ?
+                                                <button onClick={() => { minus(food._id, food.likes) }}>
+                                                    <FontAwesomeIcon icon={faHeart} className="text-rose-500" />
+                                                </button>
+                                                :
+                                                <button onClick={() => { plus(food._id, food.likes) }}>
+                                                    <FontAwesomeIcon icon={faHeart} className="text-blue-500" />
+                                                </button>
+                                        }
+                                        <p className="text-xs">{food.likes}</p>
+                                    </div>
                                     <Image src={food.image} alt="" width={200} height={200} className="w-[200px] h-[200px]" />
                                     <Link href={`/menu/food/${food._id}`} className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 text-white font-bold p-2 text-base w-full text-center'>₹{food.price}</Link>
                                 </div>

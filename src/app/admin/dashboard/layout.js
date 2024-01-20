@@ -12,10 +12,10 @@ const getAdmin = async () => {
         }
     });
     let data = await response.json();
-    if(data.error){
+    if (data.error) {
         console.log(data.error)
     }
-    else{
+    else {
         return data
     }
 }
@@ -24,7 +24,7 @@ const pageLayout = async ({ children }) => {
     const admin = await getAdmin()
     return (
         <div className='grid grid-flow-col grid-cols-4 h-screen'>
-            <Dashboard admin={admin}/>
+            <Dashboard admin={admin} />
             {children}
         </div>
     )

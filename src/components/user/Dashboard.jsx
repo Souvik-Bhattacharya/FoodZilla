@@ -26,8 +26,8 @@ const Dashboard = (props) => {
     }
     return (
         <div id='main' className='flex flex-col h-fit w-fit shadow-inner overflow-x-hidden overflow-y-auto small:absolute small:z-10 small:bg-slate-100'>
-            <FontAwesomeIcon id='open' icon={faGreaterThan} className='text-blue-500 cursor-pointer hidden small:block p-2' onClick={open}/>
-            <FontAwesomeIcon id='close' icon={faLessThan} className='text-blue-500 cursor-pointer hidden self-end p-3' onClick={close}/>
+            <FontAwesomeIcon id='open' icon={faGreaterThan} className='text-blue-500 cursor-pointer hidden small:block p-2' onClick={open} />
+            <FontAwesomeIcon id='close' icon={faLessThan} className='text-blue-500 cursor-pointer hidden self-end p-3' onClick={close} />
             <div id='cat' className='flex flex-col items-start p-10 small:pt-0 gap-3 h-fit w-fit small:w-[50vw] small:hidden'>
                 <Image src={user.image} alt="" height={50} width={50} className="rounded-full ring-2 ring-blue-500 w-[50px] h-[50px]" />
                 <h1 className="text-blue-500 text-xl font-bold italic small:text-xs">{user.email}</h1>

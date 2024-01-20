@@ -7,13 +7,13 @@ export async function DELETE(request) {
     connectToDB();
     const headersList = headers();
     const token = headersList.get('usertoken');
-    try{
+    try {
         const data = jwt.verify(token, process.env.JWT_KEY);
         const uid = data.uid;
         await User.findByIdAndDelete(uid);
-        return Response.json({ "error": false })
+        return Response.json({ status: 'ok' })
     }
-    catch(error){
-        return Response.json({ "error": error })
+    catch (error) {
+        return Response.json({ error })
     }
 }

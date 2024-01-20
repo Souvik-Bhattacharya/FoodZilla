@@ -7,6 +7,6 @@ export async function GET(request) {
         const categories = await Category.find({});
         return Response.json(categories);
     } catch (error) {
-        return Response.json({error});
+        return Response.json({ error });
     }
 }

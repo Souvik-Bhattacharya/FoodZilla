@@ -4,7 +4,7 @@ import { getHost } from "../../actions";
 const page = async () => {
     const host = await getHost();
     return (
-        <SendMail HOST={host}/>
+        <SendMail HOST={host} />
     )
 }
 

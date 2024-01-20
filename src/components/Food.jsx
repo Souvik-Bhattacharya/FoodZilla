@@ -5,14 +5,16 @@ import { parseCookies } from 'nookies'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-    faCartPlus
+    faCartPlus,
+    faHeart
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Food = (props) => {
     const food = props.data[0]
-    const { push } = useRouter()
+    const likes = props.likes
+    const { push, refresh } = useRouter()
     const [quantity, setQuantity] = useState(1)
     const [amount, setamount] = useState(food.price)
 
@@ -35,7 +37,7 @@ const Food = (props) => {
             if (data.error) {
                 toast.error('Unable to add to your cart', {
                     position: "top-center",
-                    autoClose: 5000,
+                    autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -55,7 +57,7 @@ const Food = (props) => {
                     progress: undefined,
                     theme: "light",
                 });
-                setTimeout(()=>{push("/menu")},2000)
+                setTimeout(() => { push("/menu") }, 2000)
             }
         }
     }
@@ -71,6 +73,119 @@ const Food = (props) => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
             setamount(amount - food.price);
+        }
+    }
+
+    const plus = async (fid, like) => {
+        const cookies = parseCookies();
+        if (!cookies["usertoken"]) {
+            push("/user/login")
+        }
+        else {
+            let response1 = await fetch(`${props.HOST}/api/like/add`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'usertoken': cookies["usertoken"]
+                },
+                body: JSON.stringify({ fid })
+            })
+            let msg1 = await response1.json()
+            if (msg1.error) {
+                toast.error('Unable to add like', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+            else {
+                like = like + 1;
+                let response2 = await fetch(`${props.HOST}/api/foods/update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'usertoken': cookies["usertoken"]
+                    },
+                    body: JSON.stringify({ fid, like })
+                });
+                let msg2 = await response2.json()
+                if (msg2.error) {
+                    toast.error('Unable to update like', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+                else {
+                    refresh();
+                }
+            }
+        }
+    }
+    const minus = async (fid, like) => {
+        const cookies = parseCookies();
+        if (!cookies["usertoken"]) {
+            push("/user/login")
+        }
+        else {
+            let response1 = await fetch(`${props.HOST}/api/like/remove`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'usertoken': cookies["usertoken"]
+                },
+                body: JSON.stringify({ fid })
+            })
+            let msg1 = await response1.json()
+            if (msg1.error) {
+                toast.error('Unable to remove like', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+            else {
+                like = like - 1
+                let response2 = await fetch(`${props.HOST}/api/foods/update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'usertoken': cookies["usertoken"]
+                    },
+                    body: JSON.stringify({ fid, like })
+                })
+                let msg2 = await response2.json()
+                if (msg2.error) {
+                    toast.error('Unable to update like', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+                else {
+                    refresh();
+                }
+            }
         }
     }
 
@@ -90,8 +205,23 @@ const Food = (props) => {
             />
             <div className='flex p-10 mini:flex-col justify-center items-center w-full h-fit'>
                 <Image src={food.image} alt="" width={200} height={200} className='rounded-lg w-[200px] h-[200px]' />
-                <div className='flex flex-col gap-1 px-2 mini:items-center mini:text-center'>
-                    <p className='text-2xl p-1'>{food.name}</p>
+                <div className='flex flex-col gap-1 px-3 mini:items-center mini:text-center'>
+                    <div className='flex items-center w-full justify-between'>
+                        <p className='text-2xl p-1'>{food.name}</p>
+                        <div className="flex justify-center gap-1 items-center">
+                            {
+                                (likes.includes(food._id)) ?
+                                    <button onClick={() => { minus(food._id, food.likes) }}>
+                                        <FontAwesomeIcon icon={faHeart} size='xl' className="text-rose-500" />
+                                    </button>
+                                    :
+                                    <button onClick={() => { plus(food._id, food.likes) }}>
+                                        <FontAwesomeIcon icon={faHeart} size='xl' className="text-blue-500" />
+                                    </button>
+                            }
+                            <p className="text-base">{food.likes}</p>
+                        </div>
+                    </div>
                     <p className='text-base p-1'>Category: {food.category}</p>
                     <hr className='w-full' />
                     <p className='p-1 text-base'>{food.desc}</p>

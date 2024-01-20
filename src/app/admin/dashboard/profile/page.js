@@ -26,7 +26,7 @@ const page = async () => {
     const admin = await getAdmin();
     const host = await getHost()
     return (
-        <Edit admin={admin} HOST={host}/>
+        <Edit admin={admin} HOST={host} />
     )
 }
 

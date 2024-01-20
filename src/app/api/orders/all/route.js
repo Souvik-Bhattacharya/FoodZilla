@@ -7,12 +7,12 @@ export async function GET(request) {
     connectToDB();
     const headersList = headers();
     const token = headersList.get('admintoken');
-    try{
+    try {
         jwt.verify(token, process.env.JWT_KEY);
         let orders = await Order.find({});
         return Response.json(orders);
     }
-    catch(error){
-        return Response.json({ "error": error })
+    catch (error) {
+        return Response.json({  "error": error })
     }
 }

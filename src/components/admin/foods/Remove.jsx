@@ -68,7 +68,7 @@ const Remove = (props) => {
                 <hr className='p-1 w-full' />
             </div>
 
-            <input type="text" name="name" value={data.name} placeholder='Food Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg w-1/2' required/>
+            <input type="text" name="name" value={data.name} placeholder='Food Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg w-1/2' required />
 
             <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-3 rounded-lg w-1/2'>Remove</button>
         </form>

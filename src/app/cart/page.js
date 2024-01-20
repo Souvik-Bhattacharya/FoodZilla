@@ -14,10 +14,10 @@ const getCart = async () => {
         }
     }, { cache: 'no-store' });
     let data = await response.json();
-    if(data.error){
+    if (data.error) {
         console.log(data.error)
     }
-    else{
+    else {
         return data
     }
 }
@@ -33,23 +33,23 @@ const getUser = async () => {
         }
     }, { next: { revalidate: 1 } });
     let data = await response.json();
-    if(data.error){
+    if (data.error) {
         console.log(data.error)
     }
-    else{
+    else {
         return data
     }
 }
 
 const page = async () => {
-    if(!cookies().has("usertoken")){
+    if (!cookies().has("usertoken")) {
         redirect("/user/login")
     }
     let cart = await getCart();
     let user = await getUser();
     let host = await getHost();
     return (
-        <Cart cart={cart} user={user} HOST={host}/>
+        <Cart cart={cart} user={user} HOST={host} />
     )
 }
 

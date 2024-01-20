@@ -4,7 +4,7 @@ import { getHost } from "../../actions";
 const page = async () => {
     const host = await getHost();
     return (
-        <Signup HOST={host}/>
+        <Signup HOST={host} />
     )
 }
 

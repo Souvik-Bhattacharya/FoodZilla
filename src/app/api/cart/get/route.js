@@ -7,13 +7,13 @@ export async function GET(request) {
     connectToDB();
     const headersList = headers();
     const token = headersList.get('usertoken');
-    try{
+    try {
         const data = jwt.verify(token, process.env.JWT_KEY);
         const uid = data.uid;
         let items = await Cart.find({ "uid": uid });
         return Response.json(items);
     }
-    catch(error){
+    catch (error) {
         return Response.json({ error })
     }
 }

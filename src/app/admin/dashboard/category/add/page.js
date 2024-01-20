@@ -5,7 +5,7 @@ import React from 'react'
 const page = async () => {
     const host = await getHost()
     return (
-        <Add HOST={host}/>
+        <Add HOST={host} />
     )
 }
 

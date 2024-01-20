@@ -14,6 +14,6 @@ export async function GET(request) {
         return Response.json(admin);
     }
     catch(error){
-        return Response.json({ "error": error })
+        return Response.json({ error })
     }
 }

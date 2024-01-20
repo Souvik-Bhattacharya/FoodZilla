@@ -25,9 +25,9 @@ export async function POST(request) {
             quantity: res.quantity,
             amount: res.amount
         })
-        return Response.json({ "error": false })
+        return Response.json({ status: 'ok' })
     }
-    catch(error) {
-        return Response.json({ "error": true })
+    catch (error) {
+        return Response.json({ error })
     }
 }

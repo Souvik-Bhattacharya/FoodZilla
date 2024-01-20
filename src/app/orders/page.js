@@ -36,7 +36,7 @@ const page = async () => {
                         {orders.map((order) => {
                             return (
                                 <div key={order._id} className='flex h-[220px] mini:h-fit hover:shadow-lg hover:shadow-blue-200 border-2 border-slate-200 rounded-xl overflow-hidden mini:flex-col '>
-                                    <Image src={order.image} alt="" className='w-[200px] h-[220px]' width={200} height={200} />
+                                    <Image src={order.image} alt="" className='w-[200px] h-[220px]' width={200} height={220} />
                                     <div className='flex flex-col p-2 items-start mini:items-center justify-between'>
                                         <p className='text-sm p-1'>{order.name}</p>
                                         <p className='p-1 text-xs '>{order.date}</p>

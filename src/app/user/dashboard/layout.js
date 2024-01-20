@@ -24,7 +24,7 @@ const pageLayout = async ({ children }) => {
     const user = await getUser()
     return (
         <div className='grid grid-flow-col grid-cols-4 h-screen'>
-            <Dashboard user={user}/>
+            <Dashboard user={user} />
             {children}
         </div>
     )

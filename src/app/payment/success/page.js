@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { cookies } from 'next/headers'
+import Image from 'next/image'
 
 const getCart = async () => {
     const cookieStore = cookies()
@@ -13,10 +14,10 @@ const getCart = async () => {
         }
     });
     let data = await response.json();
-    if (data.error){
+    if (data.error) {
         console.log(data.error);
     }
-    else{
+    else {
         return data;
     }
 }
@@ -32,15 +33,15 @@ const getUser = async () => {
         }
     });
     let data = await response.json();
-    if (data.error){
+    if (data.error) {
         console.log(data.error)
     }
-    else{
+    else {
         return data;
     }
 }
 
-const addOrders = async (foods, user)=>{
+const addOrders = async (foods, user) => {
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
     for (let food of foods) {
@@ -69,7 +70,7 @@ const addOrders = async (foods, user)=>{
     }
 }
 
-const removeCart = async ()=>{
+const removeCart = async () => {
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
     let response = await fetch(`${process.env.HOST}/api/cart/remove`, {
@@ -94,8 +95,9 @@ const page = async () => {
         <div className='w-full h-screen flex p-10 justify-center overflow-auto'>
             <div className='flex flex-col items-center'>
                 <h1 className='text-2xl text-green-600 p-5 text-center'>Payment Successful</h1>
-                <h1 className='text-xl text-blue-500 p-5 text-center'>Your order will be delivered shortly</h1>
-                <Link href={"/orders"} className='underline text-lg text-center'>Go Back to My Orders Page</Link>
+                <Image src="/success.gif" width={200} height={200} alt="" className='w-[200px] h-[200px]' />
+                <h1 className='text-lg text-blue-500 p-5 text-center'>Your order will be delivered shortly</h1>
+                <Link href={"/orders"} className='underline text-base text-center'>Go Back to My Orders Page</Link>
             </div>
         </div>
     )

@@ -90,7 +90,7 @@ const Edit = (props) => {
             />
             <h1 className='p-2 text-xl font-bold text-blue-500 italic'>Update Profile</h1>
             <div className='flex gap-5 justify-center items-center small:flex-col'>
-                <Image src={data.image} alt="" className='w-[240px] h-[280px]rounded-lg hover:shadow-lg hover:shadow-blue-200' width={240} height={280}/>
+                <Image src={data.image} alt="" className='w-[240px] h-[240px] rounded-lg hover:shadow-lg hover:shadow-blue-200' width={240} height={240} />
                 <div className='flex flex-col gap-2 p-5 small:p-2'>
                     <input type="text" name="name" value={data.name} placeholder='User Name' onChange={change} className='bg-slate-200 p-2 rounded-lg micro:w-2/3 self-center w-full' />
 
@@ -108,7 +108,7 @@ const Edit = (props) => {
 
                     <input type="text" name="country" value={data.country} placeholder='Country Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' />
 
-                    <input type="password" name="password" value={data.password} placeholder='Update Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
+                    <input type="password" name="password" value={data.password} placeholder='Update Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required />
 
                     <input type="file" accept='image/*' onChange={convert} className='bg-slate-200 p-2 shadow rounded-lg w-fit micro:w-2/3 self-center' />
                 </div>

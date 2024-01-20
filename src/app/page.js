@@ -24,7 +24,7 @@ export default async function Home() {
           <div><Link href={'/menu'}><button className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-2'>Order Now &gt;</button></Link></div>
         </div>
         <div className='flex items-end'>
-          <Image src="/bg.png" width={300} height={300} alt="" className='self-end w-[300px] h-[300px]'/>
+          <Image src="/bg.png" width={300} height={300} alt="" className='self-end w-[300px] h-[300px]' />
         </div>
       </div>
       <div className='flex flex-col p-12 gap-10'>
@@ -59,8 +59,8 @@ export default async function Home() {
         </div>
       </div>
       <div className='p-12 flex flex-col items-center gap-5 bg-slate-100'>
-      <div className='text-xl font-bold text-blue-500 italic text-center'>Contact Us</div>
-      <div className='text-4xl mini:text-3xl micro:text-xl font-bold text-blue-400 text-center'>+91-01234-56789</div>
+        <div className='text-xl font-bold text-blue-500 italic text-center'>Contact Us</div>
+        <div className='text-4xl mini:text-3xl micro:text-xl font-bold text-blue-400 text-center'>+91-01234-56789</div>
       </div>
     </main>
   )
