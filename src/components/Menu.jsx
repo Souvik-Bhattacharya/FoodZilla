@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Menu = (props) => {
-    const data = props.foods.sort((a, b) => a.price - b.price);
+    const data = props.foods;
     let [foods, setfoods] = useState(data);
     const search = (e) => {
         let items = data.filter(item => {
@@ -21,16 +21,16 @@ const Menu = (props) => {
         })
         setfoods(items)
     }
-    const sort = (e) => {
+    const sortByPrice = (e) => {
         if (e.target.value === 'ascending') {
-            let items = foods;
-            items = items.sort((a, b) => a.price - b.price)
-            setfoods(items)
+            let items = [...foods];
+            items.sort((a, b) => a.price - b.price)
+            setfoods([...items])
         }
         else if (e.target.value === 'descending') {
-            let items = foods;
+            let items = [...foods];
             items = items.sort((a, b) => b.price - a.price)
-            setfoods(items)
+            setfoods([...items])
         }
     }
     return (
@@ -43,13 +43,14 @@ const Menu = (props) => {
                     <FontAwesomeIcon icon={faMagnifyingGlass} className="text-blue-500 p-2 bg-slate-100 border-2 border-blue-300 rounded-md border-r-0 rounded-r-none" />
                     <input type="search" className="bg-slate-100 w-full p-1 border-2 border-blue-300 rounded-md border-l-0 rounded-l-none caret-blue-500" placeholder="Search Your Food " onChange={search} />
                 </form>
-                <div className="flex items-center gap-2">
+                <form action="" className="flex items-center gap-2">
                     <label htmlFor="sort"><FontAwesomeIcon icon={faSort} className="text-blue-500" /></label>
-                    <select id="sort" className="bg-slate-100 border-2 border-blue-300 rounded-md py-1" onChange={sort}>
+                    <select id="sort" className="bg-slate-100 border-2 border-blue-300 rounded-md py-1" onChange={sortByPrice}>
+                        <option value="" selected disabled hidden>Select...</option>
                         <option value="ascending">Ascending</option>
                         <option value="descending">Descending</option>
                     </select>
-                </div>
+                </form>
             </div>
             {
                 (foods.length != 0) ?

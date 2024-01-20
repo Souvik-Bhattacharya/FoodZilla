@@ -13,7 +13,7 @@ const getUser = async () => {
     });
     let data = await response.json();
     if (data.error) {
-        alert("Unable to fetch user");
+        console.log(data.error)
     }
     else {
         return data;

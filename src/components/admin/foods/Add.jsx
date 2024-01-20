@@ -2,6 +2,8 @@
 import Image from 'next/image'
 import { parseCookies } from 'nookies'
 import React, { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Add = (props) => {
     const [data, setData] = useState({ image: "", category: "", name: "", desc: "", price: "", likes: "" })
@@ -19,10 +21,28 @@ const Add = (props) => {
         });
         const result = await response.json();
         if (result.error) {
-            alert(result.error)
+            toast.error('Unable to add food item', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
-            alert("Successfully added food item")
+            toast.success("Food item added successfully", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
@@ -37,12 +57,33 @@ const Add = (props) => {
             setData({ ...data, image: reader.result })
         }
         reader.onerror = (error)=>{
-            alert(error);
+            toast.error(`${error}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
     return (
         <form onSubmit={add} className='p-10 small:px-0 flex flex-col gap-3 items-center col-span-3 small:col-span-4 h-full overflow-auto'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <h1 className='p-2 text-xl font-bold text-blue-500 italic'>Add Food</h1>
             <div className='flex gap-5 justify-center items-center small:flex-col'>
                 <Image src={data.image} alt="" className='w-[240px] h-[280px]rounded-lg' width={240} height={280}/>

@@ -1,6 +1,8 @@
 "use client"
 import { parseCookies } from 'nookies'
 import React, { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Password = (props) => {
     const [data, setData] = useState({ "password": "" })
@@ -18,10 +20,28 @@ const Password = (props) => {
         });
         const result = await response.json();
         if (result.error) {
-            alert(result.error)
+            toast.error('Unable to update password', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
-            alert("Successfully updated password")
+            toast.success("Password updated successfully", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
@@ -31,12 +51,22 @@ const Password = (props) => {
 
     return (
         <form onSubmit={update} className='p-10 small:px-0 flex flex-col gap-3 items-center col-span-3 small:col-span-4 h-full overflow-auto'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className='flex flex-col'>
                 <p className='p-1 text-xl font-bold text-blue-500 italic'>Update Password</p>
                 <hr className='p-1 w-full' />
             </div>
-
-            <input type="email" hidden autoComplete='username'/>
 
             <input type="password" name="password" value={data.password} autoComplete="new-password" required placeholder='Update Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg w-1/2'/>
 

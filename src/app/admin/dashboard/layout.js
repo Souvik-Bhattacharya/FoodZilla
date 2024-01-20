@@ -12,11 +12,11 @@ const getAdmin = async () => {
         }
     });
     let data = await response.json();
-    if (data.error) {
-        alert("Unable to fetch user");
+    if(data.error){
+        console.log(data.error)
     }
-    else {
-        return data;
+    else{
+        return data
     }
 }
 

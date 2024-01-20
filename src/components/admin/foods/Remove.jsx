@@ -1,6 +1,8 @@
 "use client"
 import { parseCookies } from 'nookies'
 import React, { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Remove = (props) => {
     const [data, setData] = useState({ name: "" })
@@ -18,10 +20,28 @@ const Remove = (props) => {
         });
         const result = await response.json();
         if (result.error) {
-            alert(result.error)
+            toast.error('Unable to remove food item', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
-            alert("Successfully removed food item")
+            toast.success("Food item removed successfully", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
@@ -31,6 +51,18 @@ const Remove = (props) => {
 
     return (
         <form onSubmit={remove} className='p-10 small:px-0 flex flex-col gap-3 items-center col-span-3 small:col-span-4 h-full overflow-auto'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className='flex flex-col'>
                 <p className='p-1 text-xl font-bold text-blue-500 italic'>Remove Food</p>
                 <hr className='p-1 w-full' />

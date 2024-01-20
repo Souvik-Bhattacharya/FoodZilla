@@ -14,7 +14,7 @@ const getOrders = async () => {
     }, { cache: 'no-store' });
     let data = await response.json();
     if (data.error) {
-        alert("Unable to fetch orders");
+        console.log(data.error)
     }
     else {
         return data;

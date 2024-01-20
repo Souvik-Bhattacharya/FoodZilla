@@ -3,7 +3,13 @@ import React from "react";
 
 const getFoods = async () => {
     let response = await fetch(`${process.env.HOST}/api/foods/get`, { cache: 'no-store' });
-    return await response.json();
+    let data = await response.json();
+    if(data.error){
+        console.log(data.error)
+    }
+    else{
+        return data
+    }
 }
 
 const page = async () => {

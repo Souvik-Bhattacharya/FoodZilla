@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faTrash
 } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Cart = (props) => {
     let user = props.user;
@@ -25,10 +27,28 @@ const Cart = (props) => {
         });
         const data = await response.json();
         if (data.error) {
-            alert("Unable to remove food item")
+            toast.error('Unable to remove food item', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
-            alert("food item is successfully deleted");
+            toast.success('Food item is successfully removed', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             refresh();
         }
     }
@@ -46,7 +66,16 @@ const Cart = (props) => {
         })
         const data = await response.json();
         if (data.error) {
-            alert(`Error: ${data.error}`)
+            toast.error('Unable to initialize payment', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
             push(data.url)
@@ -55,6 +84,18 @@ const Cart = (props) => {
 
     return (
         <div className='grid grid-flow-col h-screen small:flex small:flex-col small:h-fit'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             {
                 (foods.length != 0) ?
                     <div className='p-20 small:p-10 h-full overflow-auto flex flex-col gap-2'>

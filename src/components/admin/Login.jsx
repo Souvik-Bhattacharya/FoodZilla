@@ -2,6 +2,8 @@
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { setCookie } from 'nookies'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = (props) => {
     const [data, setData] = useState({"email":"", "password":""})
@@ -18,13 +20,32 @@ const Login = (props) => {
         });
         const token = await response.json();
         if(token.error){
-            alert("Invalid admin Email Address or Password")
+            toast.error('Invalid email or password', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else{
             setCookie(null, "admintoken", token.adminToken, {
                 maxAge: 30 * 24 * 60 * 60,
                 path: '/',
             })
+            toast.success("Successfully logged in", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             setTimeout(()=>{refresh()}, 100)
             push("/menu");
         }
@@ -36,6 +57,18 @@ const Login = (props) => {
 
     return (
         <div className='p-10 small:px-0 flex flex-col items-center w-full h-screen overflow-auto'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <h1 className='p-5 text-xl font-bold text-blue-500 italic'>Admin Login</h1>
             <div className='p-5'>
                 <form onSubmit={submit} className='flex flex-col gap-3'>

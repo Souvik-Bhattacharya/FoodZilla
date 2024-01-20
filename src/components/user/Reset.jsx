@@ -1,5 +1,7 @@
 'use client'
 import React, { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Reset = (props) => {
     const [data, setData] = useState({ "password": "" })
@@ -15,10 +17,28 @@ const Reset = (props) => {
         });
         const msg = await response.json();
         if (msg.error) {
-            alert("Unable to change password");
+            toast.error('Unable to change password', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
-            alert(msg.status);
+            toast.success("Password changed successfully", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
@@ -27,6 +47,18 @@ const Reset = (props) => {
     }
     return (
         <div className='p-10 small:px-0 flex flex-col items-center w-full h-screen overflow-auto'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <h1 className='p-5 text-xl font-bold text-blue-500 italic'>Reset Password</h1>
             <div className='p-5'>
                 <form onSubmit={submit} className='flex flex-col gap-3'>

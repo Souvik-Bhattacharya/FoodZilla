@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { setCookie } from 'nookies'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = (props) => {
     const [data, setData] = useState({
@@ -18,7 +20,7 @@ const Signup = (props) => {
         password: "",
         image: ""
     })
-    const { push } = useRouter();
+    const { push, refresh } = useRouter();
 
     const submit = async (e) => {
         e.preventDefault();
@@ -31,14 +33,33 @@ const Signup = (props) => {
         });
         const token = await response.json();
         if (token.error) {
-            alert("User with same email id already exist");
+            toast.error('User with same email id already exists', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
             setCookie(null, "usertoken", token.userToken, {
                 maxAge: 30 * 24 * 60 * 60,
                 path: '/',
             })
-            alert("Successfully signed up");
+            toast.success("Successfully signed in", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setTimeout(() => { refresh() }, 100)
             push("/menu");
         }
     }
@@ -54,19 +75,40 @@ const Signup = (props) => {
             setData({ ...data, image: reader.result })
         }
         reader.onerror = (error) => {
-            alert(error);
+            toast.error(`${error}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
     return (
         <form onSubmit={submit} className='p-10 small:px-0 flex flex-col gap-5 items-center w-full h-screen overflow-auto'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <h1 className='p-2 text-xl font-bold text-blue-500 italic'>User Sign Up</h1>
             <div className='flex gap-3 justify-center small:flex-col items-center'>
                 <Image src={data.image} alt="user profile photo" className='w-[240px] h-[280px] rounded-lg' width={240} height={280}/>
                 <div className='flex flex-col gap-2 p-5 small:p-2'>
                     <input type="text" name="name" value={data.name} placeholder='User Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
 
-                    <input type="email" name="email" autoComplete='username' value={data.email} placeholder='Email Address' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
+                    <input type="email" name="email" value={data.email} placeholder='Email Address' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
 
                     <input type="tel" name="contact" value={data.contact} placeholder='Contact Number' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
 
@@ -78,7 +120,7 @@ const Signup = (props) => {
 
                     <input type="text" name="state" value={data.state} placeholder='State Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
 
-                    <input type="text" name="country" value={data.country} autoComplete='country-name' placeholder='Country Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
+                    <input type="text" name="country" value={data.country} placeholder='Country Name' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
 
                     <input type="password" name="password" value={data.password} autoComplete='new-password' placeholder='Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg micro:w-2/3 self-center w-full' required/>
 

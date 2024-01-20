@@ -3,6 +3,8 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { setCookie } from 'nookies'
 import Link from 'next/link'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = (props) => {
     const [data, setData] = useState({ "email": "", "password": "" })
@@ -19,15 +21,33 @@ const Login = (props) => {
         });
         const token = await response.json();
         if (token.error) {
-            alert("Invalid user name or password");
+            toast.error('Invalid email or password', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
             setCookie(null, "usertoken", token.userToken, {
                 maxAge: 30 * 24 * 60 * 60,
                 path: '/',
             })
-            alert("Successfully logged in");
-            setTimeout(()=>{refresh()}, 100)
+            toast.success("Successfully logged in", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setTimeout(() => { refresh() }, 100)
             push("/menu");
         }
     }
@@ -38,14 +58,26 @@ const Login = (props) => {
 
     return (
         <div className='p-10 small:px-0 flex flex-col items-center w-full h-screen overflow-auto'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <h1 className='p-5 text-xl font-bold text-blue-500 italic'>User Login</h1>
             <div className='p-5'>
                 <form onSubmit={submit} className='flex flex-col gap-3'>
                     <div>
-                        <input type="email" name="email" autoComplete='username' value={data.email} placeholder='Email Address' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg'  required/>
+                        <input type="email" name="email" autoComplete='username' value={data.email} placeholder='Email Address' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg' required />
                     </div>
                     <div>
-                        <input type="password" name="password" autoComplete='current-password' value={data.password} placeholder='Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg'  required/>
+                        <input type="password" name="password" autoComplete='current-password' value={data.password} placeholder='Password' onChange={change} className='bg-slate-200 p-2 shadow rounded-lg' required />
                     </div>
                     <button type="submit" className='bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:from-cyan-400 active:to-blue-400 hover:shadow-blue-200 hover:shadow-md text-white font-bold p-3 rounded-lg'>Login</button>
                 </form>

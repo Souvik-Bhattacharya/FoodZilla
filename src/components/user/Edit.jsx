@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { parseCookies } from 'nookies'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Edit = (props) => {
     const user = props.user
@@ -22,10 +24,28 @@ const Edit = (props) => {
         });
         const result = await response.json();
         if(result.error){
-            alert(result.error)
+            toast.error('Unable to update profile', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else{
-            alert("Successfully updated user profile");
+            toast.success("Profile updated successfully", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             refresh();
         }
     }
@@ -41,12 +61,33 @@ const Edit = (props) => {
             setData({ ...data, image: reader.result })
         }
         reader.onerror = (error) => {
-            alert(error);
+            toast.error(`${error}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
     return (
         <form onSubmit={edit} className='p-10 small:px-0 flex flex-col gap-3 items-center col-span-3 small:col-span-4 h-full overflow-auto'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <h1 className='p-2 text-xl font-bold text-blue-500 italic'>Update Profile</h1>
             <div className='flex mini:flex-col gap-5 justify-center items-center'>
                 <Image src={data.image} alt="" className='w-[240px] h-[280px] rounded-lg hover:shadow-lg hover:shadow-blue-200' width={240} height={280}/>

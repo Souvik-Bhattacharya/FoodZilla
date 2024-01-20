@@ -14,11 +14,11 @@ const getCart = async () => {
         }
     }, { cache: 'no-store' });
     let data = await response.json();
-    if (data.error){
-        alert("Unable to fetch user");
+    if(data.error){
+        console.log(data.error)
     }
     else{
-        return data;
+        return data
     }
 }
 
@@ -33,11 +33,11 @@ const getUser = async () => {
         }
     }, { next: { revalidate: 1 } });
     let data = await response.json();
-    if (data.error){
-        alert("Unable to fetch user");
+    if(data.error){
+        console.log(data.error)
     }
     else{
-        return data;
+        return data
     }
 }
 

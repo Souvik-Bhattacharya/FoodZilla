@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faCartPlus
 } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Food = (props) => {
     const food = props.data[0]
@@ -31,11 +33,29 @@ const Food = (props) => {
             });
             const data = await response.json();
             if (data.error) {
-                alert("Unable to add to your cart")
+                toast.error('Unable to add to your cart', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }
             else {
-                alert("food is sucsessfully added to your cart");
-                push("/menu")
+                toast.success("Food item is added to cart successfully", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                setTimeout(()=>{push("/menu")},2000)
             }
         }
     }
@@ -56,6 +76,18 @@ const Food = (props) => {
 
     return (
         <div className='col-span-4 small:col-span-5 gap-2 h-full overflow-auto'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className='flex p-10 mini:flex-col justify-center items-center w-full h-fit'>
                 <Image src={food.image} alt="" width={200} height={200} className='rounded-lg w-[200px] h-[200px]' />
                 <div className='flex flex-col gap-1 px-2 mini:items-center mini:text-center'>
