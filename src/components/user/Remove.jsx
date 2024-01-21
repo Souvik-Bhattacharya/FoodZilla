@@ -45,7 +45,7 @@ const Remove = (props) => {
     }
 
     return (
-        <div className='w-full h-screen flex p-20 justify-center items-center overflow-auto'>
+        <div className='w-full h-screen flex p-10 justify-center overflow-auto'>
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -59,10 +59,10 @@ const Remove = (props) => {
                 theme="light"
             />
             <div className='flex flex-col items-center'>
-                <h1 className='text-3xl text-green-600 p-5'>Account Removed Successfully</h1>
+                <h1 className='text-2xl text-green-600 p-5 text-center'>Account Removed Successfully</h1>
                 <Image src="/success.gif" width={200} height={200} alt="" className='w-[200px] h-[200px]' />
-                <h1 className='text-xl text-blue-500 p-5'>Thank You</h1>
-                <Link href={"/"} className='underline text-lg'>Go Back to Home Page</Link>
+                <h1 className='text-xl text-blue-500 p-5 text-center'>Thank You</h1>
+                <Link href={"/"} className='underline text-lg text-center'>Go Back to Home Page</Link>
             </div>
         </div>
     )
