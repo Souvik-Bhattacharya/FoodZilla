@@ -3,8 +3,9 @@ import { cookies } from 'next/headers'
 import { getHost } from '@/app/actions';
 import React from "react";
 
-const getFoods = async () => {
-    let response = await fetch(`${process.env.HOST}/api/foods/get`, { cache: 'no-store' });
+const getFoods = async (page) => {
+    "use server"
+    let response = await fetch(`${process.env.HOST}/api/foods/get?page=${page}`, { cache: 'no-store' });
     let data = await response.json();
     if (data.error) {
         console.log(data.error)
@@ -13,6 +14,18 @@ const getFoods = async () => {
         return data
     }
 }
+
+const getTotal = async () => {
+    let response = await fetch(`${process.env.HOST}/api/foods/total`);
+    let data = await response.json();
+    if (data.error) {
+        console.log(data.error)
+    }
+    else {
+        return data.total
+    }
+}
+
 const getLikes = async () => {
     const cookieStore = cookies()
     const usertoken = cookieStore.get('usertoken')
@@ -31,14 +44,15 @@ const getLikes = async () => {
 }
 
 const page = async () => {
-    const foods = await getFoods();
+    const foods = await getFoods(0);
+    const total = await getTotal();
     const host = await getHost();
     let likes = [];
     if (cookies().has('usertoken')) {
         likes = await getLikes();
     }
     return (
-        <Menu foods={foods} likes={likes} HOST={host} />
+        <Menu foods={foods} likes={likes} HOST={host} getFoods={getFoods} total={total} />
     )
 }
 

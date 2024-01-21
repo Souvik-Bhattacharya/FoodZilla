@@ -3,12 +3,15 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 const SendMail = (props) => {
     const [data, setData] = useState({ "email": "" })
+    const [progress, setProgress] = useState(0)
 
     const submit = async (e) => {
         e.preventDefault();
+        setProgress(10)
         let response = await fetch(`${props.HOST}/api/auth/user/send`, {
             method: "POST",
             headers: {
@@ -16,7 +19,9 @@ const SendMail = (props) => {
             },
             body: JSON.stringify({ email: data.email })
         });
+        setProgress(40)
         const msg = await response.json();
+        setProgress(70)
         if (msg.error) {
             toast.error('Invalid email', {
                 position: "top-center",
@@ -28,6 +33,7 @@ const SendMail = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
         else {
             toast.success("Email send successfully", {
@@ -40,6 +46,7 @@ const SendMail = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
     }
 
@@ -49,6 +56,11 @@ const SendMail = (props) => {
 
     return (
         <div className='p-10 small:px-0 flex flex-col items-center w-full h-screen overflow-auto'>
+            <LoadingBar
+                color='#3b82f6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

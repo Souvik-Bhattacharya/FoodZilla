@@ -11,11 +11,12 @@ export async function GET(request) {
     }
     else {
         query = searchParams.get('category')
+        let page = searchParams.get('page')
         if (query) {
-            foods = await Food.find({ "category": query })
+            foods = await Food.find({ "category": query }).skip(page * 10).limit(10)
         }
         else {
-            foods = await Food.find({});
+            foods = await Food.find({}).skip(page * 10).limit(10);
         }
     }
     return Response.json(foods);

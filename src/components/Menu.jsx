@@ -12,12 +12,15 @@ import { useRouter } from "next/navigation";
 import { parseCookies } from 'nookies'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import InfiniteScroll from "react-infinite-scroll-component";
+import { DNA } from "react-loader-spinner";
 
 const Menu = (props) => {
     const data = props.foods;
     const { push } = useRouter();
     let [foods, setfoods] = useState(data);
     let [likes, setlikes] = useState(props.likes);
+    let [page, setpage] = useState(1);
     const search = (e) => {
         let items = data.filter(item => {
             let lowerCaseItem = item.name.toLowerCase();
@@ -200,6 +203,7 @@ const Menu = (props) => {
                     </select>
                 </form>
             </div>
+
             {
                 (foods.length != 0) ?
                     <div className='h-full row-span-9 grid grid-cols-[repeat(auto-fit,200px)] gap-5 justify-center'>
@@ -232,6 +236,33 @@ const Menu = (props) => {
                         <p>No Food Item Is Found!</p>
                     </div>
             }
+            <InfiniteScroll
+                dataLength={foods.length}
+                next={async () => {
+                    let res;
+                    if (props.category) {
+                        res = await props.getFoods(props.category, page);
+                    }
+                    else {
+                        res = await props.getFoods(page);
+                    }
+                    setfoods([...foods, ...res])
+                    setpage(page + 1)
+                }}
+                hasMore={foods.length !== props.total}
+                loader={<div className="flex flex-col items-center w-full">
+                    <DNA
+                        visible={true}
+                        height="80"
+                        width="80"
+                        ariaLabel="dna-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="dna-wrapper"
+                    />
+                    <p className="text-blue-500">Loading...</p>
+                </div>}
+                endMessage={<div className="text-center">No More Items Found</div>}
+            />
         </div>
     )
 }

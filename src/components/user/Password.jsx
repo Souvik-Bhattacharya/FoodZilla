@@ -3,13 +3,16 @@ import { parseCookies } from 'nookies'
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 const Password = (props) => {
     const [data, setData] = useState({ "password": "" })
+    const [progress, setProgress] = useState(0)
 
     const update = async (e) => {
         e.preventDefault()
         const cookies = parseCookies();
+        setProgress(10)
         let response = await fetch(`${props.HOST}/api/auth/user/password`, {
             method: "POST",
             headers: {
@@ -18,7 +21,9 @@ const Password = (props) => {
             },
             body: JSON.stringify(data)
         });
+        setProgress(40)
         const result = await response.json();
+        setProgress(70)
         if (result.error) {
             toast.error('Unable to update password', {
                 position: "top-center",
@@ -30,6 +35,7 @@ const Password = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
         else {
             toast.success("Password updated successfully", {
@@ -42,6 +48,7 @@ const Password = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
     }
 
@@ -51,6 +58,11 @@ const Password = (props) => {
 
     return (
         <form onSubmit={update} className='p-10 small:px-0 flex flex-col gap-3 items-center col-span-3 small:col-span-4 h-full overflow-auto'>
+            <LoadingBar
+                color='#3b82f6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

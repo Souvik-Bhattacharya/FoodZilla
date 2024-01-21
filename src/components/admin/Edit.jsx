@@ -5,15 +5,18 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 const Edit = (props) => {
     const admin = props.admin
     const [data, setData] = useState({ ...admin, "password": "" })
     const { refresh } = useRouter()
+    const [progress, setProgress] = useState(0)
 
     const edit = async (e) => {
         e.preventDefault()
         const cookies = parseCookies();
+        setProgress(10)
         let response = await fetch(`${props.HOST}/api/auth/admin/edit`, {
             method: "POST",
             headers: {
@@ -22,7 +25,9 @@ const Edit = (props) => {
             },
             body: JSON.stringify(data)
         });
+        setProgress(40)
         const result = await response.json();
+        setProgress(70)
         if (result.error) {
             toast.error('Unable to update profile', {
                 position: "top-center",
@@ -34,6 +39,7 @@ const Edit = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
         else {
             toast.success("Profile updated successfully", {
@@ -46,6 +52,7 @@ const Edit = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
             refresh();
         }
     }
@@ -76,6 +83,11 @@ const Edit = (props) => {
 
     return (
         <form onSubmit={edit} className='p-10 small:px-0 flex flex-col gap-3 items-center col-span-3 small:col-span-4 h-full overflow-auto'>
+            <LoadingBar
+                color='#3b82f6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

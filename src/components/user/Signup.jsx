@@ -6,8 +6,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 const Signup = (props) => {
+    const [progress, setProgress] = useState(0)
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -24,6 +26,7 @@ const Signup = (props) => {
 
     const submit = async (e) => {
         e.preventDefault();
+        setProgress(10)
         let response = await fetch(`${props.HOST}/api/auth/user/signup`, {
             method: "POST",
             headers: {
@@ -31,7 +34,9 @@ const Signup = (props) => {
             },
             body: JSON.stringify(data)
         });
+        setProgress(40)
         const token = await response.json();
+        setProgress(70)
         if (token.error) {
             toast.error('User with same email id already exists', {
                 position: "top-center",
@@ -43,6 +48,7 @@ const Signup = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
         else {
             setCookie(null, "usertoken", token.userToken, {
@@ -59,6 +65,7 @@ const Signup = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
             setTimeout(() => { refresh() }, 100)
             push("/menu");
         }
@@ -90,6 +97,11 @@ const Signup = (props) => {
 
     return (
         <form onSubmit={submit} className='p-10 small:px-0 flex flex-col gap-5 items-center w-full h-screen overflow-auto'>
+            <LoadingBar
+                color='#3b82f6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

@@ -4,13 +4,15 @@ import { parseCookies } from 'nookies'
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 const Add = (props) => {
     const [data, setData] = useState({ image: "/food.png", category: "", name: "", desc: "", price: "", likes: "" })
-
+    const [progress, setProgress] = useState(0)
     const add = async (e) => {
         e.preventDefault()
         const cookies = parseCookies();
+        setProgress(10)
         let response = await fetch(`${props.HOST}/api/foods/add`, {
             method: "POST",
             headers: {
@@ -19,7 +21,9 @@ const Add = (props) => {
             },
             body: JSON.stringify(data)
         });
+        setProgress(40)
         const result = await response.json();
+        setProgress(70)
         if (result.error) {
             toast.error('Unable to add food item', {
                 position: "top-center",
@@ -31,6 +35,7 @@ const Add = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
         else {
             toast.success("Food item added successfully", {
@@ -43,6 +48,7 @@ const Add = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
     }
 
@@ -72,6 +78,11 @@ const Add = (props) => {
 
     return (
         <form onSubmit={add} className='p-10 small:px-0 flex flex-col gap-3 items-center col-span-3 small:col-span-4 h-full overflow-auto'>
+            <LoadingBar
+                color='#3b82f6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

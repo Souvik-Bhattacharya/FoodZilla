@@ -2,12 +2,15 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 const Reset = (props) => {
     const [data, setData] = useState({ "password": "" })
+    const [progress, setProgress] = useState(0)
 
     const submit = async (e) => {
         e.preventDefault();
+        setProgress(10)
         let response = await fetch(`${props.HOST}/api/auth/user/reset`, {
             method: "POST",
             headers: {
@@ -15,7 +18,9 @@ const Reset = (props) => {
             },
             body: JSON.stringify({ userToken: props.usertoken, password: data.password })
         });
+        setProgress(40)
         const msg = await response.json();
+        setProgress(70)
         if (msg.error) {
             toast.error('Unable to change password', {
                 position: "top-center",
@@ -27,6 +32,7 @@ const Reset = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
         else {
             toast.success("Password changed successfully", {
@@ -39,6 +45,7 @@ const Reset = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
     }
 
@@ -47,6 +54,11 @@ const Reset = (props) => {
     }
     return (
         <div className='p-10 small:px-0 flex flex-col items-center w-full h-screen overflow-auto'>
+            <LoadingBar
+                color='#3b82f6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

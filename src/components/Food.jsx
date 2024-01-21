@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 const Food = (props) => {
     const food = props.data[0]
@@ -17,6 +18,7 @@ const Food = (props) => {
     const { push, refresh } = useRouter()
     const [quantity, setQuantity] = useState(1)
     const [amount, setamount] = useState(food.price)
+    const [progress, setProgress] = useState(0)
 
     const submit = async (e) => {
         e.preventDefault();
@@ -25,6 +27,7 @@ const Food = (props) => {
             push("/user/login")
         }
         else {
+            setProgress(10)
             const response = await fetch(`${props.HOST}/api/cart/add`, {
                 method: "POST",
                 headers: {
@@ -33,7 +36,9 @@ const Food = (props) => {
                 },
                 body: JSON.stringify({ image: food.image, name: food.name, price: food.price, quantity: quantity, amount: amount })
             });
+            setProgress(40)
             const data = await response.json();
+            setProgress(70)
             if (data.error) {
                 toast.error('Unable to add to your cart', {
                     position: "top-center",
@@ -45,6 +50,7 @@ const Food = (props) => {
                     progress: undefined,
                     theme: "light",
                 });
+                setProgress(100)
             }
             else {
                 toast.success("Food item is added to cart successfully", {
@@ -57,6 +63,7 @@ const Food = (props) => {
                     progress: undefined,
                     theme: "light",
                 });
+                setProgress(100)
                 setTimeout(() => { push("/menu") }, 2000)
             }
         }
@@ -64,15 +71,25 @@ const Food = (props) => {
 
     const add = (e) => {
         e.preventDefault()
+        setProgress(40)
         setQuantity(quantity + 1);
+        setProgress(70)
         setamount(amount + food.price);
+        setProgress(100)
     }
 
     const subtract = (e) => {
         e.preventDefault()
+        setProgress(10)
         if (quantity > 1) {
+            setProgress(40)
             setQuantity(quantity - 1);
+            setProgress(70)
             setamount(amount - food.price);
+            setProgress(100)
+        }
+        else{
+            setProgress(100)
         }
     }
 
@@ -82,6 +99,7 @@ const Food = (props) => {
             push("/user/login")
         }
         else {
+            setProgress(10)
             let response1 = await fetch(`${props.HOST}/api/like/add`, {
                 method: 'POST',
                 headers: {
@@ -90,7 +108,9 @@ const Food = (props) => {
                 },
                 body: JSON.stringify({ fid })
             })
+            setProgress(20)
             let msg1 = await response1.json()
+            setProgress(30)
             if (msg1.error) {
                 toast.error('Unable to add like', {
                     position: "top-center",
@@ -102,8 +122,10 @@ const Food = (props) => {
                     progress: undefined,
                     theme: "light",
                 });
+                setProgress(100)
             }
             else {
+                setProgress(40)
                 like = like + 1;
                 let response2 = await fetch(`${props.HOST}/api/foods/update`, {
                     method: 'POST',
@@ -113,7 +135,9 @@ const Food = (props) => {
                     },
                     body: JSON.stringify({ fid, like })
                 });
+                setProgress(50)
                 let msg2 = await response2.json()
+                setProgress(60)
                 if (msg2.error) {
                     toast.error('Unable to update like', {
                         position: "top-center",
@@ -125,8 +149,10 @@ const Food = (props) => {
                         progress: undefined,
                         theme: "light",
                     });
+                    setProgress(100)
                 }
                 else {
+                    setProgress(100)
                     refresh();
                 }
             }
@@ -138,6 +164,7 @@ const Food = (props) => {
             push("/user/login")
         }
         else {
+            setProgress(10)
             let response1 = await fetch(`${props.HOST}/api/like/remove`, {
                 method: 'DELETE',
                 headers: {
@@ -146,7 +173,9 @@ const Food = (props) => {
                 },
                 body: JSON.stringify({ fid })
             })
+            setProgress(20)
             let msg1 = await response1.json()
+            setProgress(30)
             if (msg1.error) {
                 toast.error('Unable to remove like', {
                     position: "top-center",
@@ -158,8 +187,10 @@ const Food = (props) => {
                     progress: undefined,
                     theme: "light",
                 });
+                setProgress(100)
             }
             else {
+                setProgress(40)
                 like = like - 1
                 let response2 = await fetch(`${props.HOST}/api/foods/update`, {
                     method: 'POST',
@@ -169,7 +200,9 @@ const Food = (props) => {
                     },
                     body: JSON.stringify({ fid, like })
                 })
+                setProgress(50)
                 let msg2 = await response2.json()
+                setProgress(60)
                 if (msg2.error) {
                     toast.error('Unable to update like', {
                         position: "top-center",
@@ -181,8 +214,10 @@ const Food = (props) => {
                         progress: undefined,
                         theme: "light",
                     });
+                    setProgress(100)
                 }
                 else {
+                    setProgress(100)
                     refresh();
                 }
             }
@@ -191,6 +226,11 @@ const Food = (props) => {
 
     return (
         <div className='col-span-4 small:col-span-5 gap-2 h-full overflow-auto'>
+            <LoadingBar
+                color='#3b82f6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

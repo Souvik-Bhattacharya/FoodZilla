@@ -5,13 +5,16 @@ import { setCookie } from 'nookies'
 import Link from 'next/link'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 const Login = (props) => {
     const [data, setData] = useState({ "email": "", "password": "" })
     const { push, refresh } = useRouter();
+    const [progress, setProgress] = useState(0)
 
     const submit = async (e) => {
         e.preventDefault();
+        setProgress(10)
         let response = await fetch(`${props.HOST}/api/auth/user/login`, {
             method: "POST",
             headers: {
@@ -19,7 +22,9 @@ const Login = (props) => {
             },
             body: JSON.stringify({ email: data.email, password: data.password })
         });
+        setProgress(40)
         const token = await response.json();
+        setProgress(70)
         if (token.error) {
             toast.error('Invalid email or password', {
                 position: "top-center",
@@ -31,6 +36,7 @@ const Login = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
         else {
             setCookie(null, "usertoken", token.userToken, {
@@ -47,6 +53,7 @@ const Login = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
             setTimeout(() => { refresh() }, 100)
             push("/menu");
         }
@@ -58,6 +65,11 @@ const Login = (props) => {
 
     return (
         <div className='p-10 small:px-0 flex flex-col items-center w-full h-screen overflow-auto'>
+            <LoadingBar
+                color='#3b82f6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

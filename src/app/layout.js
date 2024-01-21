@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import React from "react";
 config.autoAddCss = false;
 
 const mooli = Mooli({ subsets: ['latin'], display: 'swap', weight: '400' })

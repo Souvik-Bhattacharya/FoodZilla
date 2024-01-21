@@ -1,13 +1,14 @@
 "use client"
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 const Cart = (props) => {
     let user = props.user;
@@ -17,15 +18,19 @@ const Cart = (props) => {
     foods.forEach(food => {
         total = total + food.amount
     });
+    const [progress, setProgress] = useState(0)
 
     const remove = async (cid) => {
+        setProgress(10)
         let response = await fetch(`${props.HOST}/api/cart/remove?id=${cid}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             }
         });
+        setProgress(40)
         const data = await response.json();
+        setProgress(70)
         if (data.error) {
             toast.error('Unable to remove food item', {
                 position: "top-center",
@@ -37,6 +42,7 @@ const Cart = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
         else {
             toast.success('Food item is successfully removed', {
@@ -49,12 +55,14 @@ const Cart = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
             refresh();
         }
     }
 
     const order = async (e) => {
         e.preventDefault();
+        setProgress(10)
         const response = await fetch(`${props.HOST}/api/payment`, {
             method: "POST",
             headers: {
@@ -64,7 +72,9 @@ const Cart = (props) => {
                 items: foods
             })
         })
+        setProgress(40)
         const data = await response.json();
+        setProgress(70)
         if (data.error) {
             toast.error('Unable to initialize payment', {
                 position: "top-center",
@@ -76,14 +86,21 @@ const Cart = (props) => {
                 progress: undefined,
                 theme: "light",
             });
+            setProgress(100)
         }
         else {
+            setProgress(100)
             push(data.url)
         }
     }
 
     return (
         <div className='grid grid-flow-col h-screen small:flex small:flex-col small:h-fit'>
+            <LoadingBar
+                color='#3b82f6'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
